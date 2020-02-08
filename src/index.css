@@ -11,3 +11,50 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.input-class {
+  width: 90%;
+  height: 33px;
+  font-size: 17px;
+  margin: 0 auto 20px;
+  padding: 5px 10px;
+  border: 1px solid #d9d9d9;    
+  border-radius: 3px;
+}
+
+.form-class {
+  margin: 0px;
+  padding-bottom: 60px;
+  border: none;
+}
+
+.button-class {
+  background: #024e8a;
+  border-radius: 4px;
+  color: #fff;
+  display: inline-block;
+  font-size: 13px;
+  padding: 15px 25px;
+  font-weight: bold;
+  margin: 10px auto;
+  width: 265px;
+  border: none;
+}
+
+.div-class {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+  margin-top: 30px;
+}
+
+.label-class {
+  font-size: 19px;
+  margin-top: 10px;
+  margin-left: 50px; 
+}
+
+.image-class {
+  margin-left: 35px; 
+}

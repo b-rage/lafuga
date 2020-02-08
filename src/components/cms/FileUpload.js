@@ -2,32 +2,29 @@ import React, { useState } from 'react';
 import { firebaseApp } from '../../firebase';
 
 
-const FileUpload = ({doImageUrl}) => {
+const FileUpload = ({ doImageUrl, fileType }) => {
 
     const [imageUrl, setImageUrl] = useState('');
 
     const onUpload = e => {
 
         const file = e.target.files[0];
-        const storageRef = firebaseApp.storage().ref(`/books/${file.name}`);
+        const storageRef = firebaseApp.storage().ref(`/${fileType}/${file.name}`);
         const task = storageRef.put(file);
 
         task.then(snapshot => {
             return snapshot.ref.getDownloadURL()
         }).then(downUrl => {
-            setImageUrl(downUrl)
-            console.log('downUrl', downUrl)
+            setImageUrl(downUrl);
             doImageUrl(downUrl);
         });
 
-        
     }
 
     return (
         <>
-            <p>Fileupload</p>
-            <input type="file" onChange={onUpload} />
-            <img width="520" src={imageUrl} alt='' />
+            <input className="input-class" type="file" onChange={onUpload} required/>
+            <img className="image-class" width="60" src={imageUrl} alt='' />
         </>
     );
 }
