@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { firebaseApp } from '../../firebase';
 
 
-const FileUpload = ({ doImageUrl, fileType }) => {
+const FileUpload = ({ doImageUrl, fileType, required }) => {
 
     const [imageUrl, setImageUrl] = useState('');
 
@@ -23,7 +23,7 @@ const FileUpload = ({ doImageUrl, fileType }) => {
 
     return (
         <>
-            <input className="input-class" type="file" onChange={onUpload} required/>
+            <input className="input-class" type="file" onChange={onUpload} required={required}/>
             <img className="image-class" width="60" src={imageUrl} alt='' />
         </>
     );

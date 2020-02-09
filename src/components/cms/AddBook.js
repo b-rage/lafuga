@@ -20,9 +20,24 @@ const AddBook = () => {
     pages: '',
     isbn: '',
     pvp: '',
+    description: '',
+    collection: '',
     pubDate: moment('2014-03-09').format('YYYY-MM-DD'),
+    storeUrl: '',
     imageUrl: '',
+    startReedUrl: '',
+    pressNoteUrl: ''
   });
+
+  const [news, updateNews] = useState({
+    newsTitle: '',
+    newsDate: moment('2014-03-09').format('YYYY-MM-DD'),
+    newsUrl: '',
+    newsFileUrl: ''
+  });
+
+  const [addNews, updateAddNews] = useState(false);
+
 
   const db = firebaseApp.firestore();
 
@@ -39,22 +54,76 @@ const AddBook = () => {
   const doImageUrl = (url) => {
     updateState({ ...state, imageUrl: url })
   }
+
+  const doStartReedUrl = (url) => {
+    updateState({ ...state, startReedUrl: url })
+  }
+
+  const doPressNoteUrl = (url) => {
+    updateState({ ...state, pressNoteUrl: url })
+  }
+
+  const handleDateNewsChange = e => {
+    updateNews({ ...news, newsDate: moment(new Date(e)).format("DD/MM/YYYY") })
+  };
+
+
   const handleSubmit = e => {
     e.preventDefault();
 
     // Add a new document in collection "books"
-    db.collection("books").doc().set({
-      imageUrl: state.imageUrl,
+    db.collection("books").add({      
       author: state.author,
       title: state.title,
-      pubDate: state.pubDate
+      author: state.author,
+      title: state.title,
+      subtitle: state.subtitle,
+      introduction: state.introduction,
+      translator: state.translator,
+      prologue: state.prologue,
+      format: state.format,
+      binding: state.binding,
+      pages: state.pages,
+      isbn: state.isbn,
+      pvp: state.pvp,
+      description: state.description,
+      collection: state.collection,
+      pubDate: state.pubDate,
+      imageUrl: state.imageUrl, 
+      storeUrl: state.storeUrl,  
+      startReedUrl: state.startReedUrl, 
+      pressNoteUrl: state.pressNoteUrl
     })
-      .then(() => {
+      .then((docRef) => {
+        db.collection(`books/${docRef.id}/news`).add({      
+          newsTitle: news.newsTitle,
+          newsDate: news.newsDate,
+          newsUrl: news.newsUrl,
+          newsFileUrl: news.newsFileUrl
+        })
+          .then(() => {
+            console.log("Document successfully written!");
+          })
+          .catch(error => {
+            console.error("Error writing document: ", error);
+          });
         console.log("Document successfully written!");
       })
       .catch(error => {
         console.error("Error writing document: ", error);
-      });
+      });      
+  }
+
+  const handleNewsInputChange = e => {
+    updateNews({ ...news, [e.target.name]: e.target.value })
+  }
+
+  const onAddNewsChange = () => {
+    updateAddNews(!addNews)
+  }
+
+  const doNewsNoteUrl = (url) => {
+    updateNews({ ...news, newsFileUrl: url })
   }
 
   return (
@@ -84,15 +153,46 @@ const AddBook = () => {
           <input className="input-class" placeholder="ISBN" type="text" onChange={handleInputChange} name="isbn" value={state.isbn || ''} required />
           <p className="label-class">PVP</p>
           <input className="input-class" placeholder="PVP" type="text" onChange={handleInputChange} name="pvp" value={state.pvp || ''} required />
+          <p className="label-class">Descripción</p>
+          <input className="input-class" placeholder="Descripción" type="text" onChange={handleInputChange} name="description" value={state.description || ''} required />
+          <p className="label-class">Colección</p>
+          <input className="input-class" placeholder="Colección" type="text" onChange={handleInputChange} name="collection" value={state.collection || ''} required />
+          <p className="label-class">Link a tienda</p>
+          <input className="input-class" placeholder="Link a tienda" type="text" onChange={handleInputChange} name="storeUrl" value={state.storeUrl || ''} required />
           <p className="label-class">Portada</p>
-          <FileUpload doImageUrl={doImageUrl} fileType="books" />
+          <FileUpload doImageUrl={doImageUrl} fileType="books" required={true}/>
           <br></br>
           <p className="label-class">Fecha publicacion</p>
+          <p className="p-class">{state.pubDate || ''}</p>
           <DatePicker
             defaultDate={state.pubDate}
             onSelect={handleDateChange}
           />
-          {/* <input className="input-class" placeholder="Publication Date" type="text" onChange={handleDateChange} value={moment(new Date(state.pubDate)).format("DD/MM/YYYY") || ''} /> */}
+          <p className="label-class">Empieza a leer</p>
+          <FileUpload doImageUrl={doStartReedUrl} fileType="pdfs" required={false}/>
+          <p className="label-class">Nota de prensa</p>
+          <FileUpload doImageUrl={doPressNoteUrl} fileType="pdfs" required={false}/>
+          <br></br><br></br>
+          <button className="button-class" type="button" onClick={onAddNewsChange}>Añadir Noticia de prensa</button>
+          {addNews && 
+          <>
+          <p className="label-class">Fecha noticia</p>
+          <p className="p-class">{news.newsDate || ''}</p>
+          <DatePicker
+            defaultDate={news.newsDate}
+            onSelect={handleDateNewsChange}
+          />
+          <p className="label-class">Titulo Noticia</p>
+          <input className="input-class" placeholder="Titulo Noticia" type="text" onChange={handleNewsInputChange} name="newsTitle" value={news.newsTitle || ''} required />
+          <p className="label-class">Link Noticia</p>
+          <input className="input-class" placeholder="Link Noticia" type="text" onChange={handleNewsInputChange} name="newsUrl" value={news.newsUrl || ''}  />
+          <p className="label-class">Importar fichero noticia</p>
+          <FileUpload doImageUrl={doNewsNoteUrl} fileType="pdfs" required={false}/>
+          </>}
+          <br></br>
+          {/* <p className="label-class">Titulo Noticia</p>
+          <input className="input-class" placeholder="Titulo Noticia" type="text" onChange={handleInputChange} name="news.newsTitle" value={news.newsTitle || ''} /> */}
+         
           <button className="button-class" type="submit">Guardar</button>
         </div>
       </form>

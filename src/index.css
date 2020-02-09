@@ -50,11 +50,16 @@ code {
 }
 
 .label-class {
-  font-size: 19px;
+  font-size: 23px;
   margin-top: 10px;
   margin-left: 50px; 
 }
 
 .image-class {
   margin-left: 35px; 
+}
+
+.p-class {
+  margin-left: 50px; 
+  margin-top: 10;
 }
