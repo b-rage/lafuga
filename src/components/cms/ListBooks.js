@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { firebaseApp } from '../../firebase';
+import BookListItem from './BookListItem'
 
 
 const ListBooks = () => {
@@ -33,7 +34,9 @@ const ListBooks = () => {
 
     return (
         <>
-            
+            {state.listBooks.map(item => {
+            return <BookListItem key={item.title}  title={item.title} id={item.idBook} />
+            })}
         </>
     );
 }

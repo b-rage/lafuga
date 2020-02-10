@@ -1,12 +1,21 @@
 import React from 'react';
-import { Route, Redirect, withRouter } from 'react-router-dom'
+import { Route, Redirect, withRouter } from 'react-router-dom';
+import { StorageProvider } from "./context/Storage";
 import Dashboard from './components/cms/Dashboard';
+import Login from './components/cms/Login';
+import BookNews from './components/cms/BookNews'
 
 
-function App() {
+const App = () => {
+
   return (
     <div className="App">
-      <Route path="/login" render={() => <Dashboard /> } />
+      <StorageProvider>
+        <Route path="/login" render={() => <Login  /> } />
+        <Route path="/dashboard" render={() => <Dashboard />} />
+        <Route exact path="/dashboard/book/:id" render={(props) => <BookNews id={props.match.params.id}/> } />
+      </StorageProvider>
+
       
     </div>
   );

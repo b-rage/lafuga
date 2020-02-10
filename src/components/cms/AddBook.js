@@ -4,12 +4,15 @@ import moment from 'moment';
 import DatePicker from '@trendmicro/react-datepicker';
 import '@trendmicro/react-datepicker/dist/react-datepicker.css';
 import FileUpload from './FileUpload';
+import Select from 'react-select';
 
 
 const AddBook = () => {
 
+
   const [state, updateState] = useState({
     author: '',
+    authorId: '',
     title: '',
     subtitle: '',
     introduction: '',
@@ -26,7 +29,9 @@ const AddBook = () => {
     storeUrl: '',
     imageUrl: '',
     startReedUrl: '',
-    pressNoteUrl: ''
+    pressNoteUrl: '',
+    imageAuthorUrl: '',
+    msg: false
   });
 
   const [news, updateNews] = useState({
@@ -37,13 +42,28 @@ const AddBook = () => {
   });
 
   const [addNews, updateAddNews] = useState(false);
-
+  let authors = [];
 
   const db = firebaseApp.firestore();
 
 
+  useEffect(() => {
+
+    db.collection("authors")
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(doc => {
+          authors.push({author: doc.data().author, imageAuthorUrl: doc.data().imageAuthorUrl, description: doc.data().description, idAuthor: doc.id})
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+  });
+
+
   const handleInputChange = e => {
-    updateState({ ...state, [e.target.name]: e.target.value })
+    updateState({ ...state, [e.target.name]: e.target.value, msg: false })
   }
 
   const handleDateChange = e => {
@@ -63,19 +83,14 @@ const AddBook = () => {
     updateState({ ...state, pressNoteUrl: url })
   }
 
-  const handleDateNewsChange = e => {
-    updateNews({ ...news, newsDate: moment(new Date(e)).format("DD/MM/YYYY") })
-  };
-
-
   const handleSubmit = e => {
     e.preventDefault();
 
     // Add a new document in collection "books"
     db.collection("books").add({      
       author: state.author,
-      title: state.title,
-      author: state.author,
+      authorId: state.authorId,
+      imageAuthorUrl: state.imageAuthorUrl,
       title: state.title,
       subtitle: state.subtitle,
       introduction: state.introduction,
@@ -107,7 +122,7 @@ const AddBook = () => {
           .catch(error => {
             console.error("Error writing document: ", error);
           });
-        console.log("Document successfully written!");
+        updateState({ ...state, msg: true })
       })
       .catch(error => {
         console.error("Error writing document: ", error);
@@ -122,17 +137,39 @@ const AddBook = () => {
     updateAddNews(!addNews)
   }
 
+  const handleDateNewsChange = e => {
+    updateNews({ ...news, newsDate: moment(new Date(e)).format("DD/MM/YYYY") })
+  };
+
   const doNewsNoteUrl = (url) => {
     updateNews({ ...news, newsFileUrl: url })
   }
 
+  const handleAuthorChange = value => {
+    updateState({ ...state, author: value.author, authorId: value.idAuthor, imageAuthorUrl: value.imageAuthorUrl })
+  } 
+
   return (
     <>
-
       <form className="form-class" onSubmit={handleSubmit}>
         <div className="div-class">
+          <h1 className="ml-35">Añadir Libro</h1>
           <p className="label-class">Autor</p>
-          <input className="input-class" placeholder="Autor" type="text" onChange={handleInputChange} name="author" value={state.author || ''} required />
+          <div className="ml-35">
+            <Select
+                options={authors}
+                getOptionLabel={(option) => option.author}
+                placeholder={'Elegir Autor'}
+                style={
+                {height: '40px',
+                width: '80%',
+                maxWidth: '400px',
+                marginLeft: '35px'}
+                }
+                onChange={handleAuthorChange}
+            />
+          </div>
+          <br></br>
           <p className="label-class">Titulo</p>
           <input className="input-class" placeholder="Titulo" type="text" onChange={handleInputChange} name="title" value={state.title || ''} required />
           <p className="label-class">Subtitulo</p>
@@ -194,10 +231,9 @@ const AddBook = () => {
           <input className="input-class" placeholder="Titulo Noticia" type="text" onChange={handleInputChange} name="news.newsTitle" value={news.newsTitle || ''} /> */}
          
           <button className="button-class" type="submit">Guardar</button>
+          {state.msg && <h2>Libro añadido con exito</h2>}
         </div>
       </form>
-
-
     </>
   );
 }
