@@ -8,16 +8,19 @@ const FileUpload = ({ doImageUrl, fileType, required }) => {
 
     const onUpload = e => {
 
-        const file = e.target.files[0];
-        const storageRef = firebaseApp.storage().ref(`/${fileType}/${file.name}`);
-        const task = storageRef.put(file);
+        const file = e.target.files && e.target.files[0];
+        if(file.name) {
+            const storageRef = firebaseApp.storage().ref(`/${fileType}/${file.name}`);
+            const task = storageRef.put(file);
 
-        task.then(snapshot => {
-            return snapshot.ref.getDownloadURL()
-        }).then(downUrl => {
-            setImageUrl(downUrl);
-            doImageUrl(downUrl);
-        });
+            task.then(snapshot => {
+                return snapshot.ref.getDownloadURL()
+            }).then(downUrl => {
+                setImageUrl(downUrl);
+                doImageUrl(downUrl);
+            });
+        }
+        
 
     }
 

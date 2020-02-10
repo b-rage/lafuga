@@ -35,7 +35,7 @@ const AddAuthor = () => {
       author: state.author,
       description: state.description,
       imageAuthorUrl: state.imageAuthorUrl,
-      dateAuthor: ''
+      dateAuthor: state.dateAuthor
     })
     .then(() => {
         updateState({ ...state, msg: true })

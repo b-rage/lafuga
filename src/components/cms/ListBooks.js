@@ -34,6 +34,8 @@ const ListBooks = () => {
 
     return (
         <>
+            <h1 className="ml-35">Listado Libros</h1>
+            <br></br>
             {state.listBooks.map(item => {
             return <BookListItem key={item.title}  title={item.title} id={item.idBook} />
             })}
