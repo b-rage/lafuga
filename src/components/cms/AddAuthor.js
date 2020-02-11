@@ -25,8 +25,6 @@ const AddAuthor = () => {
     updateState({ ...state, imageAuthorUrl: url })
   }
 
-
-
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -59,7 +57,7 @@ const AddAuthor = () => {
           <input className="input-class" placeholder="Descripción" type="text" onChange={handleInputChange} name="description" value={state.description || ''} required />
           <p className="label-class">Foto Autor</p>
           <FileUpload doImageUrl={doImageAuthorUrl} fileType="authors" required={false}/>
-          <br></br>        
+          <br></br>       
           <button className="button-class" type="submit">Guardar</button>
           {state.msg && <h2>Autor añadido con exito</h2>}
         </div>
