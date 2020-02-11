@@ -5,7 +5,7 @@ const AuthorsCardItem = ({ author, id, imageAuthorUrl }) => {
   return (
     <>
 
-      <div class="col-xs-12 col-sm-3 mt-25">
+      <div className="col-xs-12 col-sm-3 mt-25">
           <Link to={`/autor/${id}`} style={{ textDecoration: 'none' }}>  
           { imageAuthorUrl ? <img
                 src={imageAuthorUrl}

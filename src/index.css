@@ -72,6 +72,10 @@ code {
   margin-top: 45px; 
 }
 
+.mtop-8 {
+  margin-top: -8px; 
+}
+
 .div-list {
   display:flex;
   flex-direction: row;
@@ -149,15 +153,16 @@ code {
 
 .author-name {
   margin-top: 15px;
-  font-size: 12px;
+  font-size: 15px;
   font-family: "Arial";
   font-weight: 700;
   color: #111;
   text-align: center;
 }
 
-
-
+.mg-0-auto {
+  margin: 0 auto;
+}
 
 
 /* ==========================================================================
@@ -198,30 +203,19 @@ code {
       color: black;
       font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 12px;
-  }
-  
-  nav ul a:hover{
-      text-decoration: none;
-      color: black;
-      font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 12px;
-  }
-  
-  .material-icons{
-     
-      color: black;
       
-  } 
-  
-  .nav-wrapper {
-  
-      height: 70px !important;
   }
   
-  nav ul li.active {
-      background-color: rgba(255,255,255,0.1);
-      border-bottom: 1px solid #000 !important;
-  }
+  
+  nav ul a:active{
+    text-decoration: none;
+    color: black;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    border-bottom: 1px solid black !important;
+}
+  
+
   
   .link_autor {
       color: #666666;
@@ -503,7 +497,7 @@ code {
     opacity: 0.9;
     width: 100%;
     min-height: 450px;
-    margin-top: 10px;
+    margin-top: 0px;
   }
   
   
@@ -597,15 +591,17 @@ code {
   
   
   
-  #content_first_editorial {
+  .content_first_editorial {
     background-color: #F3ECCE;
     opacity: 0.9;
     width: 100%;
     min-height: 450px;
     margin-bottom: 40px;
-    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 100px;
+    line-height: 21px;
   }
-  #titol_pagina_editorial {
+  .titol_pagina_editorial {
     margin-top: 30px;
     color: #111;
     font-size: 35px;
@@ -613,16 +609,18 @@ code {
     font-family: "Lato";
     font-weight: 100;
     text-align: center;
-  }
-  #img_editorial {
+    margin: 0 auto;
     margin-top: 30px;
+  }
+  .img_editorial {
+    margin-top: -25px;
     text-align: center;
   }
-  #div_editorial {
+  .div_editorial {
     text-align: center;
     
   }
-  #text_editorial {
+  .text_editorial {
     
     margin-top: 30px;
     text-align: justify;

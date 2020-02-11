@@ -58,7 +58,7 @@ const ListAuthors = () => {
       <div className="content_first_autores">
         <div className="container">
           <div className="row align-text-center">
-            <div className="col-xs-12 colo-lg-12">
+            <div>
               <p className="author-list-title">Autores</p>
             </div>
           </div>

@@ -9,6 +9,7 @@
     "@trendmicro/react-datepicker": "^1.0.0-alpha.6",
     "bootstrap": "^4.4.1",
     "firebase": "^7.8.1",
+    "mdbreact": "4.25.1",
     "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
