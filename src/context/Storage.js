@@ -23,7 +23,12 @@ export class StorageProvider extends React.Component {
     loggedIn: false,
     setLoggedIn: value => {
         this.setState({ loggedIn: value })
-      },
+    },
+    listAuthors: null,
+    setListAuthors: value => {
+      /* const _listAuthors = [...this.state.listAuthors, value]
+      this.setState({listAuthors: _listAuthors} ) */
+    },
   }
 
 

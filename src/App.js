@@ -10,6 +10,7 @@ import AuthorsPage from './components/website/AuthorPage';
 import NavBarComponent from './components/website/NavBarComponent.jsx';
 import Editorial from './components/website/Editorial'
 import FooterPage from './components/website/FooterPage';
+import Home from './components/website/Home';
 
 
 const App = () => {
@@ -21,9 +22,10 @@ const App = () => {
         <Route path="/login" render={() => <Login  /> } />
         <Route path="/dashboard" render={() => <Dashboard />} />
         <Route exact path="/dashboard/book/:id" render={(props) => <BookNews id={props.match.params.id}/> } />
-        <Route path="/autores" render={() =>  <ListAuthors />} />
+        <Route exact path="/" render={() => <Home  /> } />
+        <Route exact path="/autores" render={() =>  <ListAuthors />} />
         <Route exact path="/autor/:id" render={(props) => <AuthorsPage id={props.match.params.id}/> } />
-        <Route path="/editorial" render={() => <Editorial  /> } />
+        <Route exact path="/editorial" render={() => <Editorial  /> } />
         <FooterPage />
       </StorageProvider>
 

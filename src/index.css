@@ -124,8 +124,8 @@ code {
 
 .round {
   background-color: white;
-  height: 150px;
-  width: 150px;
+  height: 140px;
+  width: 140px;
   border-radius: 50%;
   margin-left: 40px;
 }
@@ -136,6 +136,7 @@ code {
 
 .align-text-center {
   text-align: center;
+  margin: 0 auto;
 }
 
 .descarga {
@@ -163,6 +164,8 @@ code {
 .mg-0-auto {
   margin: 0 auto;
 }
+
+
 
 
 /* ==========================================================================
@@ -196,6 +199,16 @@ code {
   /* ==========================================================================
     INDEX
      ========================================================================== */
+
+     .content_first {
+      background-color: #EEEEEE;
+      opacity: 0.9;
+      width: 100%;
+      min-height: 450px;
+      padding-bottom: 50px;
+      margin-bottom: 50px;
+      
+      }
   
   
   nav ul a{
@@ -315,18 +328,36 @@ code {
     font-weight: 500;
     text-decoration:none;
   }
+
+  footer a, a:hover {
+    color: #000;
+    font-weight: bold;
+    text-decoration:none;
+  }
   
+  @media (min-width: 767px) {
+    .right {
+      text-align: right;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .round{
+      margin: 0 auto;
+    }
+  }
   
   .footer {
-      padding: 30px 0;
+      position: relative;
       margin-top: 80px;
-      margin-bottom: 0px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 1rem;
       background-color: #F0F0F0;
   }
   
-  #partners {
-      text-align: right;
-  }
+
   
   
   
@@ -498,6 +529,7 @@ code {
     width: 100%;
     min-height: 450px;
     margin-top: 0px;
+    padding-bottom: 35px;
   }
   
   
@@ -506,7 +538,6 @@ code {
     color: #111;
     font-size: 35px;
     line-height: 1.3;
-    text-align: center;
     font-family: "Lato";
     font-weight: 100;
   }
@@ -626,6 +657,7 @@ code {
     text-align: justify;
     size:17px;
     color:#676165;
+    padding: 0px 35px;
   }
   
   
@@ -701,7 +733,10 @@ code {
     min-height: 450px;
     margin-top: 10px;
     
+    
   }
+
+ 
   
   
   #tabla {
