@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
 import { firebaseApp } from "../../firebase";
 import { WithStorageConsumer } from '../../context/Storage'
 import "@trendmicro/react-datepicker/dist/react-datepicker.css";
 import AuthorsCardItem from "./AuthorsCardItem";
+import MetaTags from 'react-meta-tags';
 
 const Home = props => {
   const [state, updateState] = useState({
@@ -16,10 +16,12 @@ const Home = props => {
   });
 
   useEffect(() => {
-/*     const db = firebaseApp.firestore();
+    /* const _listAuthors = window.sessionStorage.getItem('listAuthors');
+    updateState({ ...state,listAuthors: _listAuthors }); */
+    const db = firebaseApp.firestore();
     db.collection("authors")
       .get()
-      .then(function(querySnapshot) {
+      .then(function (querySnapshot) {
         querySnapshot.forEach(doc => {
           state.listAuthors.push({
             author: doc.data().author,
@@ -27,37 +29,34 @@ const Home = props => {
             description: doc.data().description,
             dateAuthor: doc.data().dateAuthor,
             idAuthor: doc.id
-          })
-
-
-        })
-
-        updateState({ ...state, ...state.listAuthors });
+          });
+          updateState({ ...state, ...state.listAuthors });
+          console.log("AUTORES", state.listAuthors);
+        });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("Error getting documents: ", error);
-      }); */
-
+      });
     //updateState(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-  });
+  }, []);
 
- 
 
-  state.listAuthors.sort(function(a, b){
-    let nameA=a.author.split(' ')[1].toLowerCase(), nameB=b.author.split(' ')[1].toLowerCase()
+
+  state.listAuthors.sort(function (a, b) {
+    let nameA = a.author.split(' ')[1].toLowerCase(), nameB = b.author.split(' ')[1].toLowerCase()
     if (nameA < nameB) //sort string ascending
-        return -1 
+      return -1
     if (nameA > nameB)
-        return 1
+      return 1
     return 0 //default return value (no sorting)
-    })
+  })
 
   return (
     <>
-      <Helmet>
-        <meta charSet="utf-8" />
+      <MetaTags>
         <title>La Fuga ediciones</title>
-      </Helmet>
+        <meta name="description" content="La Fuga Ediciones es un proyecto editorial que nace en 2014 con una propuesta de ficción literaria moderna y universal, en principio centrada en traducciones." />
+      </MetaTags>
 
       <div className="content_first">
         <div className="container">

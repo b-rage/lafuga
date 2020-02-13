@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
 import { firebaseApp } from "../../firebase";
 import { Route, Redirect, withRouter } from "react-router-dom";
 import "@trendmicro/react-datepicker/dist/react-datepicker.css";
+import MetaTags from 'react-meta-tags';
 
 const AutorPage = props => {
   const [state, updateState] = useState({
@@ -18,7 +18,7 @@ const AutorPage = props => {
     db.collection(`authors`)
       .doc(`${props.id}`)
       .get()
-      .then(function(doc) {
+      .then(function (doc) {
         updateState({
           author: doc.data().author,
           description: doc.data().description,
@@ -27,7 +27,7 @@ const AutorPage = props => {
         });
         console.log("AUTORES", doc.data());
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("Error getting documents: ", error);
       });
     //updateState(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
@@ -39,15 +39,15 @@ const AutorPage = props => {
 
   return (
     <>
-      <Helmet>
-        <meta charSet="utf-8" />
+      <MetaTags>
         <title>{state.author}</title>
-      </Helmet>
+        <meta name="description" content="La Fuga Ediciones es un proyecto editorial que nace en 2014 con una propuesta de ficción literaria moderna y universal, en principio centrada en traducciones." />
+      </MetaTags>
       <div className="container-autor-page">
         <div className="container">
           <br></br>
           <div className="row">
-            <button onClick={goBack}>&#60;</button>
+            <button className="arrow" onClick={goBack}>&#60;</button>
           </div>
           <div className="row">
             <div className="col-md-6">

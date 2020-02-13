@@ -11,7 +11,7 @@ import NavBarComponent from './components/website/NavBarComponent.jsx';
 import Editorial from './components/website/Editorial'
 import FooterPage from './components/website/FooterPage';
 import Home from './components/website/Home';
-
+import ContactPage from './components/website/ContactPage';
 
 const App = () => {
 
@@ -26,6 +26,7 @@ const App = () => {
         <Route exact path="/autores" render={() =>  <ListAuthors />} />
         <Route exact path="/autor/:id" render={(props) => <AuthorsPage id={props.match.params.id}/> } />
         <Route exact path="/editorial" render={() => <Editorial  /> } />
+        <Route exact path="/contacto" render={() => <ContactPage  /> } />
         <FooterPage />
       </StorageProvider>
 

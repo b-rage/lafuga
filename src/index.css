@@ -191,6 +191,13 @@ code {
   .modal {
     max-height: 60%;
   }
+
+  .arrow {
+    color: black;
+    background-color: white;
+    border-radius: 50%;
+    border: 3px solid white;
+  }
   
   #btn-compra{
     margin-top: 10px;
