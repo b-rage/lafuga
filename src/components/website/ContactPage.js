@@ -5,7 +5,7 @@ import MetaTags from 'react-meta-tags';
 
 const ContactPage = () => {
 
-    let nomInp = null;
+    const nomInp = null;
                       
                       const requiredInput = () => {
                         nomInp = document.getElementById('nombre_input').value;
@@ -27,32 +27,40 @@ const ContactPage = () => {
                       
     return (
         <>
-           <div id="content_editorial" > 
-              <div id="content_first_contactos">
+
+<MetaTags>
+        <title>Contacto</title>
+        <meta name="description" content="La Fuga Ediciones es un proyecto editorial que nace en 2014 con una propuesta de ficción literaria moderna y universal, en principio centrada en traducciones." />
+      </MetaTags>
+           <div className="content_editorial" > 
+              <div className="content_first_contactos">
                 <div className="container">
                   <div className="row">
                     <div className="col-xs-12 colo-lg-12">
-                      <p id="titol_pagina_editorial">Contacto</p>
+                      <p className="titol_pagina_editorial">Contacto</p>
                     </div>
-                    <div id="div_contactos" className="col-xs-12 "> 
-
+                    <div className="div_contactos" className="col-xs-12 "> 
+                    <div className="inscribete" >Inscríbete a nuestra Newsletter</div><br></br>
 
                       <form name="frm" action="./form_2.php" method="post">
+                        <br />
                       <p>Nombre</p><br></br>
-                      <input id="nombre_input" type="text" name="cf_name" size="14" />
+                      <input className="nombre_input" type="text" name="cf_name" size="14" />
                       <br></br>
                           <br></br>
                           Email<br></br>
-                          <input id="email_input" name="cf_email" type="text" size="14" maxlength="200"/>
+                          <input className="email_input" name="cf_email" type="text" size="14" maxlength="200"/>
                           <br></br>
-                          <input type="submit" id="submit" name="sub" value="Enviar" disabled />
+                          <br></br>
+                          <br></br>
+                          <input type="submit" className="submit" name="sub" value="Enviar" disabled />
                         <br></br>
                         <br></br>
                         <input type="checkbox" name="chk" onClick={requiredInput} />
                         <label>Acepto términos y condiciones</label>
                       </form>
 
-                      <div id="inscribete" >Inscríbete a nuestra Newsletter</div><br></br>
+                      
                       
                       <p className="condiciones">Los datos de carácter personal que se solicitan en la sección “Inscribete a nuestra newsletter” serán tratados de conformidad con la normativa reguladora de la protección de datos de carácter personal. Los mismos serán incorporados al fichero “Amigos de La fuga” que se encontrará bajo la responsabilidad de La fuga ediciones, S.L.
                         

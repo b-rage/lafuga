@@ -674,20 +674,19 @@ code {
   * ************************************ */
   
   
-  #content_first_contactos {
+  .content_first_contactos {
     background-color: #D4D3C3;
     opacity: 0.9;
     width: 100%;
     min-height: 450px;
     margin-bottom: 40px;
-    margin-top: 10px;
     text-align: center;
   }
-  #div_contactos {
+  .div_contactos {
     text-align: center;
     margin-top: 40px;
   }
-  #inscribete {
+  .inscribete {
     margin-top: 10px;
     margin-left: 0px;
     font-size: 28px;
@@ -700,7 +699,7 @@ code {
       margin-top: 30px;
   }
   
-  #submit {
+  .submit {
     color: #FFF;
     font-size: 13;
     width: 100px;
