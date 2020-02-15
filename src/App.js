@@ -12,6 +12,8 @@ import Editorial from './components/website/Editorial'
 import FooterPage from './components/website/FooterPage';
 import Home from './components/website/Home';
 import ContactPage from './components/website/ContactPage';
+import BooksPage from './components/website/BooksPage';
+import EscalonesPage from './components/website/EscalonesPage'
 
 const App = () => {
 
@@ -27,6 +29,8 @@ const App = () => {
         <Route exact path="/autor/:id" render={(props) => <AuthorsPage id={props.match.params.id}/> } />
         <Route exact path="/editorial" render={() => <Editorial  /> } />
         <Route exact path="/contacto" render={() => <ContactPage  /> } />
+        <Route exact path="/libros" render={() => <BooksPage  /> } />
+        <Route exact path="/libros/escalones" render={() => <EscalonesPage  /> } />
         <FooterPage />
       </StorageProvider>
 

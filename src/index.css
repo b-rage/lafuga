@@ -51,12 +51,30 @@ code {
   border: none;
 }
 
+.button-class-home {
+  background: #CCCCCC;
+  border-radius: 4px;
+  color: #fff;
+  display: inline-block;
+  font-size: 13px;
+  padding: 15px 25px;
+  font-weight: bold;
+  margin: 10px auto;
+  width: 265px;
+  border: none;
+}
+
 .div-class {
   display: flex;
   justify-content: center;
   flex-direction: column;
   width: 90%;
   margin-top: 30px;
+}
+
+.middle {
+  background-color: white;
+  padding: 10px 0;
 }
 
 .label-class {
@@ -356,7 +374,14 @@ code {
   }
   
 
-  
+  .content-first-home {
+    background-color: #EEEEEE;
+    opacity: 0.9;
+    width: 100%;
+    min-height: 450px;
+    margin-top: 0px;
+    padding-bottom: 35px;
+  }
   
   
   
@@ -404,12 +429,17 @@ code {
     font-size: 19px;
     font-family:"Lato";
   }
-  #content_first_libros {
+  .content-first-books {
     background-color: #DED4B9;
     opacity: 0.9;
     width: 100%;
     min-height: 450px;
-    margin-top: 30px;
+    margin-top: 0px;
+    padding-bottom: 30px;
+  }
+
+  .content-first-escalones {
+    background-color: #fbefc5;
   }
   
   
@@ -417,7 +447,7 @@ code {
     margin-top: 50px;
   }
   
-  #content_first_escalones {
+  .content_first_escalones {
     background-color: #FFEDBE;
     opacity: 0.9;
     width: 100%;

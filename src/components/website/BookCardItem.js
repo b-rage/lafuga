@@ -15,8 +15,8 @@ const BookCardItem = ({ pubDate, pvp, title, author, authorId, id, imageUrl }) =
                 </Link>
                 <Link to={`/book/${id}`} style={{ textDecoration: 'none' }}>
                     {imageUrl && <div>
-                        <LazyLoad height="180">
-                            <img src={imageUrl} height="180" alt={`foto ${title}`} />
+                        <LazyLoad height="250">
+                            <img src={imageUrl} height="250" alt={`foto ${title}`} />
                         </LazyLoad>
                     </div>}
                 </Link>
