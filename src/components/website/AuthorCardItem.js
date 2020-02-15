@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazyload';
 
 
-const AuthorsCardItem = ({ author, id, imageAuthorUrl }) => {
+const AuthorCardItem = ({ author, id, imageAuthorUrl }) => {
   return (
     <>
 
@@ -22,4 +22,4 @@ const AuthorsCardItem = ({ author, id, imageAuthorUrl }) => {
   );
 };
 
-export default AuthorsCardItem;
+export default AuthorCardItem;

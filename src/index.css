@@ -12,6 +12,16 @@ code {
     monospace;
 }
 
+.input-class-web {
+  width: 300px;
+  height: 33px;
+  font-size: 17px;
+  margin: 0 auto 20px;
+  padding: 5px 10px;
+  border: 1px solid #d9d9d9;    
+  border-radius: 3px;
+}
+
 .input-class {
   width: 90%;
   height: 33px;
@@ -139,7 +149,7 @@ code {
   margin: 0 auto;
 }
 
-.descarga {
+.download {
   background:#676165;
     border-radius: 4px;
     color: #fff;
@@ -173,25 +183,6 @@ code {
    ========================================================================== */
 
 
-  
-  #modal-text{
-    font-size: 24px;
-    text-align: center;
-    font-family: 'Lora', serif;
-    font-weight: 200;
-  }
-  
-  #modal-title{
-    
-    text-align: center;
-    font-size: 28px;
-    
-  }
-  
-  .modal {
-    max-height: 60%;
-  }
-
   .arrow {
     color: black;
     background-color: white;
@@ -199,10 +190,7 @@ code {
     border: 3px solid white;
   }
   
-  #btn-compra{
-    margin-top: 10px;
-  }
-  
+
   /* ==========================================================================
     INDEX
      ========================================================================== */
@@ -237,14 +225,15 @@ code {
   
 
   
-  .link_autor {
+  .link-author {
       color: #666666;
       text-decoration: none;
       font-size: 11px;
+      text-transform: capitalize;
      
   }
   
-  .link_autor:hover {
+  .link-author:hover {
       color: #666666;
       text-decoration: none;
      
@@ -298,16 +287,16 @@ code {
     font-weight: bold !important;
   }
   
-  .box1_librerias {
+  .bottom-title {
     margin-top: 20px !important;
     margin-left: 0px !important;
     color: #666666 !important;
     font-size: 10px !important;
-    line-height: 10px !important;
+    line-height: 12px !important;
     font-family: "Arial" !important;
   }
-  .box1_price {
-    margin-top: -5px !important;
+  .bottom-price {
+    margin-top: -9px !important;
     margin-left: 0px !important;
     color: #000 !important;
     font-size: 11px !important;
@@ -453,19 +442,8 @@ code {
     opacity: 0.9;
     padding-bottom: 50px;
   }
-  
-  
-  .titol_pagina_editorial {
-    margin-top: 30px;
-    margin-bottom: 60px !important;
-    color: #111;
-    font-size: 35px !important;
-    line-height: 1.3;
-    font-family: "Lato";
-    font-weight: 100;
-    text-align: center;
-  }
-  
+
+
   
   .titolo_libro_hasek {
   
@@ -477,14 +455,16 @@ code {
     margin-bottom: 15px !important;
   }
   
-  .titolo_libro_maxime {
-  
-      color: #000 !important;
+  .book-title {
+    width: 150px;
+    word-wrap: break-word;
+    color: #000 !important;
     font-size: 13px !important;
     margin-top: -10px !important;
     font-weight: bold !important;
-    line-height: 1.0;
+    line-height: 1;
     margin-bottom: 10px !important;
+
   }
   
   .nome_autore_hasek {
@@ -530,7 +510,7 @@ code {
      ========================================================================== */
   
   
-  .content_first_autores {
+  .content-first-authors {
     background-color: #D4E3EC;
     opacity: 0.9;
     width: 100%;
@@ -629,7 +609,7 @@ code {
   
   
   
-  .content_first_editorial {
+  .content-first-ed {
     background-color: #F3ECCE;
     opacity: 0.9;
     width: 100%;
@@ -639,27 +619,25 @@ code {
     padding-bottom: 100px;
     line-height: 21px;
   }
-  .titol_pagina_editorial {
-    margin-top: 30px;
+  .title-page-ed {
     color: #111;
     font-size: 35px;
     line-height: 1.3;
     font-family: "Lato";
-    font-weight: 100;
+    font-weight: normal;
     text-align: center;
-    margin: 0 auto;
-    margin-top: 30px;
+    margin: 30px auto 50px;
+
   }
-  .img_editorial {
+  .img-ed {
     margin-top: -25px;
     text-align: center;
   }
-  .div_editorial {
+  .div-ed {
     text-align: center;
     
   }
-  .text_editorial {
-    
+  .text-ed {  
     margin-top: 30px;
     text-align: justify;
     size:17px;
@@ -674,7 +652,7 @@ code {
   * ************************************ */
   
   
-  .content_first_contactos {
+  .content-first-contact {
     background-color: #D4D3C3;
     opacity: 0.9;
     width: 100%;
@@ -682,15 +660,17 @@ code {
     margin-bottom: 40px;
     text-align: center;
   }
-  .div_contactos {
+  .div-contact {
     text-align: center;
     margin-top: 40px;
   }
-  .inscribete {
+  .subscribe {
     margin-top: 10px;
     margin-left: 0px;
     font-size: 28px;
   }
+
+
   
   form p {
       margin-bottom: 10px;
@@ -708,6 +688,18 @@ code {
     margin-bottom: 20px;
     padding: 0;
     background-color: #474747;
+  }
+
+  .submit-disabled {
+    color: #FFF;
+    font-size: 13;
+    width: 100px;
+    height: 32px;
+    border: none;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: #474747;
+    opacity: 0.5;
   }
   #scroll {
     font-size: 8px;

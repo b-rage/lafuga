@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { firebaseApp } from "../../firebase";
 import "@trendmicro/react-datepicker/dist/react-datepicker.css";
-import AuthorsCardItem from "./AuthorsCardItem";
+import AuthorCardItem from "./AuthorCardItem";
 import MetaTags from 'react-meta-tags';
 
+
 const ListAuthors = () => {
+
 
 
   const [state, updateState] = useState({
@@ -17,8 +19,6 @@ const ListAuthors = () => {
   });
 
   useEffect(() => {
-    /* const _listAuthors = window.sessionStorage.getItem('listAuthors');
-    updateState({ ...state,listAuthors: _listAuthors }); */
     const db = firebaseApp.firestore();
     db.collection("authors")
       .get()
@@ -32,13 +32,11 @@ const ListAuthors = () => {
             idAuthor: doc.id
           });
           updateState({ ...state, ...state.listAuthors });
-          console.log("AUTORES", state.listAuthors);
         });
       })
       .catch(function (error) {
         console.log("Error getting documents: ", error);
       });
-    //updateState(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
   }, []);
 
 
@@ -58,17 +56,17 @@ const ListAuthors = () => {
         <title>Autores</title>
         <meta name="description" content="La Fuga Ediciones es un proyecto editorial que nace en 2014 con una propuesta de ficción literaria moderna y universal, en principio centrada en traducciones." />
       </MetaTags>
-      <div className="content_first_autores">
+      <div className="content-first-authors">
         <div className="container">
           <div className="row align-text-center">
 
-            <h5 className="titol_pagina_editorial">Autores</h5>
+            <h5 className="title-page-ed">Autores</h5>
 
           </div>
           <div className="row align-text-center">
             {state.listAuthors.map(item => {
               return (
-                <AuthorsCardItem
+                <AuthorCardItem
                   key={item.author}
                   author={item.author}
                   id={item.idAuthor}

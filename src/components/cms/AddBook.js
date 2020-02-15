@@ -50,15 +50,15 @@ const AddBook = () => {
   useEffect(() => {
 
     db.collection("authors")
-    .get()
-    .then(function(querySnapshot) {
+      .get()
+      .then(function (querySnapshot) {
         querySnapshot.forEach(doc => {
-          authors.push({author: doc.data().author, imageAuthorUrl: doc.data().imageAuthorUrl, description: doc.data().description, idAuthor: doc.id})
+          authors.push({ author: doc.data().author, imageAuthorUrl: doc.data().imageAuthorUrl, description: doc.data().description, idAuthor: doc.id })
         });
-    })
-    .catch(function(error) {
+      })
+      .catch(function (error) {
         console.log("Error getting documents: ", error);
-    });
+      });
   });
 
 
@@ -87,7 +87,7 @@ const AddBook = () => {
     e.preventDefault();
 
     // Add a new document in collection "books"
-    db.collection("books").add({      
+    db.collection("books").add({
       author: state.author,
       authorId: state.authorId,
       imageAuthorUrl: state.imageAuthorUrl,
@@ -104,13 +104,13 @@ const AddBook = () => {
       description: state.description,
       collection: state.collection,
       pubDate: state.pubDate,
-      imageUrl: state.imageUrl, 
-      storeUrl: state.storeUrl,  
-      startReedUrl: state.startReedUrl, 
+      imageUrl: state.imageUrl,
+      storeUrl: state.storeUrl,
+      startReedUrl: state.startReedUrl,
       pressNoteUrl: state.pressNoteUrl
     })
       .then((docRef) => {
-        db.collection(`books/${docRef.id}/news`).add({      
+        db.collection(`books/${docRef.id}/news`).add({
           newsTitle: news.newsTitle,
           newsDate: news.newsDate,
           newsUrl: news.newsUrl,
@@ -121,12 +121,25 @@ const AddBook = () => {
           })
           .catch(error => {
             console.error("Error writing document: ", error);
-          });
+          })
+          .then(() => {
+            // Add a new document in collection "cities"
+            db.collection(`authors/${state.authorId}/authorBooks`).set({
+              bookTitle: state.title,
+              bookId: docRef.id
+            })
+              .then(function () {
+                console.log("Document successfully written!");
+              })
+              .catch(function (error) {
+                console.error("Error writing document: ", error);
+              });
+          })
         updateState({ ...state, msg: true })
       })
       .catch(error => {
         console.error("Error writing document: ", error);
-      });      
+      });
   }
 
   const handleNewsInputChange = e => {
@@ -147,7 +160,7 @@ const AddBook = () => {
 
   const handleAuthorChange = value => {
     updateState({ ...state, author: value.author, authorId: value.idAuthor, imageAuthorUrl: value.imageAuthorUrl })
-  } 
+  }
 
   return (
     <>
@@ -157,16 +170,18 @@ const AddBook = () => {
           <p className="label-class">Autor</p>
           <div className="ml-35">
             <Select
-                options={authors}
-                getOptionLabel={(option) => option.author}
-                placeholder={'Elegir Autor'}
-                style={
-                {height: '40px',
-                width: '80%',
-                maxWidth: '400px',
-                marginLeft: '35px'}
+              options={authors}
+              getOptionLabel={(option) => option.author}
+              placeholder={'Elegir Autor'}
+              style={
+                {
+                  height: '40px',
+                  width: '80%',
+                  maxWidth: '400px',
+                  marginLeft: '35px'
                 }
-                onChange={handleAuthorChange}
+              }
+              onChange={handleAuthorChange}
             />
           </div>
           <br></br>
@@ -197,7 +212,7 @@ const AddBook = () => {
           <p className="label-class">Link a tienda</p>
           <input className="input-class" placeholder="Link a tienda" type="text" onChange={handleInputChange} name="storeUrl" value={state.storeUrl || ''} required />
           <p className="label-class">Portada</p>
-          <FileUpload doImageUrl={doImageUrl} fileType="books" required={true}/>
+          <FileUpload doImageUrl={doImageUrl} fileType="books" required={true} />
           <br></br>
           <p className="label-class">Fecha publicacion</p>
           <p className="p-class">{state.pubDate || ''}</p>
@@ -206,30 +221,30 @@ const AddBook = () => {
             onSelect={handleDateChange}
           />
           <p className="label-class">Empieza a leer</p>
-          <FileUpload doImageUrl={doStartReedUrl} fileType="pdfs" required={false}/>
+          <FileUpload doImageUrl={doStartReedUrl} fileType="pdfs" required={false} />
           <p className="label-class">Nota de prensa</p>
-          <FileUpload doImageUrl={doPressNoteUrl} fileType="pdfs" required={false}/>
+          <FileUpload doImageUrl={doPressNoteUrl} fileType="pdfs" required={false} />
           <br></br><br></br>
           <button className="button-class" type="button" onClick={onAddNewsChange}>Añadir Noticia de prensa</button>
-          {addNews && 
-          <>
-          <p className="label-class">Fecha noticia</p>
-          <p className="p-class">{news.newsDate || ''}</p>
-          <DatePicker
-            defaultDate={news.newsDate}
-            onSelect={handleDateNewsChange}
-          />
-          <p className="label-class">Titulo Noticia</p>
-          <input className="input-class" placeholder="Titulo Noticia" type="text" onChange={handleNewsInputChange} name="newsTitle" value={news.newsTitle || ''} required />
-          <p className="label-class">Link Noticia</p>
-          <input className="input-class" placeholder="Link Noticia" type="text" onChange={handleNewsInputChange} name="newsUrl" value={news.newsUrl || ''}  />
-          <p className="label-class">Importar fichero noticia</p>
-          <FileUpload doImageUrl={doNewsNoteUrl} fileType="pdfs" required={false}/>
-          </>}
+          {addNews &&
+            <>
+              <p className="label-class">Fecha noticia</p>
+              <p className="p-class">{news.newsDate || ''}</p>
+              <DatePicker
+                defaultDate={news.newsDate}
+                onSelect={handleDateNewsChange}
+              />
+              <p className="label-class">Titulo Noticia</p>
+              <input className="input-class" placeholder="Titulo Noticia" type="text" onChange={handleNewsInputChange} name="newsTitle" value={news.newsTitle || ''} required />
+              <p className="label-class">Link Noticia</p>
+              <input className="input-class" placeholder="Link Noticia" type="text" onChange={handleNewsInputChange} name="newsUrl" value={news.newsUrl || ''} />
+              <p className="label-class">Importar fichero noticia</p>
+              <FileUpload doImageUrl={doNewsNoteUrl} fileType="pdfs" required={false} />
+            </>}
           <br></br>
           {/* <p className="label-class">Titulo Noticia</p>
           <input className="input-class" placeholder="Titulo Noticia" type="text" onChange={handleInputChange} name="news.newsTitle" value={news.newsTitle || ''} /> */}
-         
+
           <button className="button-class" type="submit">Guardar</button>
           {state.msg && <h2>Libro añadido con exito</h2>}
         </div>

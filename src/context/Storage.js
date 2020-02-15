@@ -24,10 +24,9 @@ export class StorageProvider extends React.Component {
     setLoggedIn: value => {
         this.setState({ loggedIn: value })
     },
-    listAuthors: null,
+    listAuthors: [],
     setListAuthors: value => {
-      /* const _listAuthors = [...this.state.listAuthors, value]
-      this.setState({listAuthors: _listAuthors} ) */
+      this.setState({...this.state, listAuthors: value} ) 
     },
   }
 

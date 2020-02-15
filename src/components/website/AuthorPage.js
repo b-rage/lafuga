@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { firebaseApp } from "../../firebase";
+import { Link } from 'react-router-dom';
 import { Route, Redirect, withRouter } from "react-router-dom";
 import "@trendmicro/react-datepicker/dist/react-datepicker.css";
 import MetaTags from 'react-meta-tags';
 
-const AutorPage = props => {
+const AuthorPage = props => {
   const [state, updateState] = useState({
     author: "",
     description: "",
@@ -13,8 +14,11 @@ const AutorPage = props => {
     listAuthors: []
   });
 
+
+  const [listAuthorBooks, setListAuthorBooks] = useState([])
+
   useEffect(() => {
-    const db = firebaseApp.firestore();
+  const db = firebaseApp.firestore();
     db.collection(`authors`)
       .doc(`${props.id}`)
       .get()
@@ -25,13 +29,26 @@ const AutorPage = props => {
           imageAuthorUrl: doc.data().imageAuthorUrl,
           dateAuthor: doc.data().dateAuthor
         });
-        console.log("AUTORES", doc.data());
+
+      })
+      .then(() => {
+        const docRef = db.collection(`authors/${props.id}/authorBooks`)
+
+        docRef.get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              listAuthorBooks.push(doc.data());
+              setListAuthorBooks([...listAuthorBooks]);
+            });
+          })
+          .catch(function (error) {
+            console.log("Error getting documents: ", error);
+          });
       })
       .catch(function (error) {
-        console.log("Error getting documents: ", error);
+        console.log("Error getting documents2: ", error);
       });
-    //updateState(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-  }, []);
+  }, []); 
 
   const goBack = () => {
     props.history.goBack();
@@ -58,15 +75,20 @@ const AutorPage = props => {
                   <div className="description">{state.description} </div>
                   <div id="u121-7" className="clearfix colelem">
                     <span id="u121">Títulos:</span>
-                    <a className="link" href="el-tesoro.html">
-                      {" "}
-                      El tesoro de Franchard
-                    </a>
+
+                      {listAuthorBooks && listAuthorBooks.map(item => {
+                        return (
+                          <Link to={`/books/${item.bookId}`} key={item.title} className="book-title">
+                            &nbsp;{item.bookTitle} /
+                          </Link>
+
+                        );
+                      })}
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div className="col-md-6">
               {state.imageAuthorUrl && (
                 <div className="box2">
                   <img
@@ -77,7 +99,7 @@ const AutorPage = props => {
                   />{" "}
                   <a href={state.imageAuthorUrl}>
                     <br></br>
-                    <button className="descarga">descarga foto</button>
+                    <button className="download">descarga foto</button>
                   </a>
                 </div>
               )}
@@ -89,4 +111,4 @@ const AutorPage = props => {
   );
 };
 
-export default withRouter(AutorPage);
+export default withRouter(AuthorPage);
