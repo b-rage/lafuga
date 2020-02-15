@@ -5,18 +5,21 @@ import DatePicker from '@trendmicro/react-datepicker';
 import '@trendmicro/react-datepicker/dist/react-datepicker.css';
 import FileUpload from './FileUpload';
 import Select from 'react-select';
+import MetaTags from 'react-meta-tags';
 
 
 const AddBook = () => {
 
 
   const [state, updateState] = useState({
+    bookId: '',
     author: '',
     authorId: '',
     title: '',
     subtitle: '',
     introduction: '',
     translator: '',
+    illustrations: '',
     prologue: '',
     format: '',
     binding: '',
@@ -95,6 +98,7 @@ const AddBook = () => {
       subtitle: state.subtitle,
       introduction: state.introduction,
       translator: state.translator,
+      illustrations: state.illustrations,
       prologue: state.prologue,
       format: state.format,
       binding: state.binding,
@@ -109,40 +113,19 @@ const AddBook = () => {
       startReedUrl: state.startReedUrl,
       pressNoteUrl: state.pressNoteUrl
     })
-      .then((docRef) => {
-        db.collection(`books/${docRef.id}/news`).add({
-          newsTitle: news.newsTitle,
-          newsDate: news.newsDate,
-          newsUrl: news.newsUrl,
-          newsFileUrl: news.newsFileUrl
+    .then((docRef) => {
+      db.collection(`authors`).doc(`${state.authorId}`).collection('authorBooks').add({
+          bookTitle: state.title,
+          bookId: docRef.id
         })
-          .then(() => {
-            console.log("Document successfully written!");
-          })
-          .catch(error => {
-            console.error("Error writing document: ", error);
-          })
-          .then(() => {
-            // Add a new document in collection "cities"
-            db.collection(`authors/${state.authorId}/authorBooks`).set({
-              bookTitle: state.title,
-              bookId: docRef.id
-            })
-              .then(function () {
-                console.log("Document successfully written!");
-              })
-              .catch(function (error) {
-                console.error("Error writing document: ", error);
-              });
-          })
         updateState({ ...state, msg: true })
-      })
-      .catch(error => {
-        console.error("Error writing document: ", error);
-      });
+    })
+    .catch(error => {
+      console.error("Error writing document: ", error);
+    });
   }
 
-  const handleNewsInputChange = e => {
+  /* const handleNewsInputChange = e => {
     updateNews({ ...news, [e.target.name]: e.target.value })
   }
 
@@ -156,7 +139,7 @@ const AddBook = () => {
 
   const doNewsNoteUrl = (url) => {
     updateNews({ ...news, newsFileUrl: url })
-  }
+  } */
 
   const handleAuthorChange = value => {
     updateState({ ...state, author: value.author, authorId: value.idAuthor, imageAuthorUrl: value.imageAuthorUrl })
@@ -164,6 +147,10 @@ const AddBook = () => {
 
   return (
     <>
+    <MetaTags>
+        <title>Añadir libro</title>
+        <meta name="description" content="La Fuga Ediciones es un proyecto editorial que nace en 2014 con una propuesta de ficción literaria moderna y universal, en principio centrada en traducciones." />
+      </MetaTags>
       <form className="form-class" onSubmit={handleSubmit}>
         <div className="div-class">
           <h1 className="ml-35">Añadir Libro</h1>
@@ -193,6 +180,8 @@ const AddBook = () => {
           <input className="input-class" placeholder="Introduccion" type="text" onChange={handleInputChange} name="introduction" value={state.introduction || ''} />
           <p className="label-class">Traductor</p>
           <input className="input-class" placeholder="Traductor" type="text" onChange={handleInputChange} name="translator" value={state.translator || ''} required />
+          <p className="label-class">Ilustraciones</p>
+          <input className="input-class" placeholder="Ilustraciones" type="text" onChange={handleInputChange} name="illustrations" value={state.illustrations || ''} />
           <p className="label-class">Prologo</p>
           <input className="input-class" placeholder="Prologo" type="text" onChange={handleInputChange} name="prologue" value={state.prologue || ''} />
           <p className="label-class">Formato</p>
@@ -225,7 +214,7 @@ const AddBook = () => {
           <p className="label-class">Nota de prensa</p>
           <FileUpload doImageUrl={doPressNoteUrl} fileType="pdfs" required={false} />
           <br></br><br></br>
-          <button className="button-class" type="button" onClick={onAddNewsChange}>Añadir Noticia de prensa</button>
+         {/*  <button className="button-class" type="button" onClick={onAddNewsChange}>Añadir Noticia de prensa</button>
           {addNews &&
             <>
               <p className="label-class">Fecha noticia</p>
@@ -240,7 +229,7 @@ const AddBook = () => {
               <input className="input-class" placeholder="Link Noticia" type="text" onChange={handleNewsInputChange} name="newsUrl" value={news.newsUrl || ''} />
               <p className="label-class">Importar fichero noticia</p>
               <FileUpload doImageUrl={doNewsNoteUrl} fileType="pdfs" required={false} />
-            </>}
+            </>} */}
           <br></br>
           {/* <p className="label-class">Titulo Noticia</p>
           <input className="input-class" placeholder="Titulo Noticia" type="text" onChange={handleInputChange} name="news.newsTitle" value={news.newsTitle || ''} /> */}

@@ -78,10 +78,12 @@ const AuthorPage = props => {
 
                       {listAuthorBooks && listAuthorBooks.map(item => {
                         return (
-                          <Link to={`/books/${item.bookId}`} key={item.title} className="book-title">
-                            &nbsp;{item.bookTitle} /
+                          <React.Fragment key={item.title}>
+                          <br />
+                          <Link to={`/books/${item.bookId}`} key={item.title}  className="book-title">
+                            -&nbsp;{item.bookTitle} 
                           </Link>
-
+                            </React.Fragment>
                         );
                       })}
                   </div>

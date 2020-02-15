@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { firebaseApp } from "../../firebase";
-import { WithStorageConsumer } from '../../context/Storage'
+import React from "react";
 import "@trendmicro/react-datepicker/dist/react-datepicker.css";
 import MetaTags from 'react-meta-tags';
 import BookList from './BookList'
 
-const Home = props => {
+const Home = () => {
 
-  const [listAuthors, setListAuthors] = useState([])
+  /*  const [listAuthors, setListAuthors] = useState([])
 
- /*  useEffect(() => {
+ useEffect(() => {
     const db = firebaseApp.firestore();
     db.collection("authors")
       .get()
@@ -37,10 +35,18 @@ const Home = props => {
         <title>La Fuga ediciones</title>
         <meta name="description" content="La Fuga Ediciones es un proyecto editorial que nace en 2014 con una propuesta de ficción literaria moderna y universal, en principio centrada en traducciones." />
       </MetaTags>
+      <div className="content-first-authors">
+        <div className="container col-md-12">
+          <div className="row">
 
-  <BookList />
+            <BookList />
+
+          </div>
+        </div>
+      </div>
+
     </>
   );
 };
 
-export default WithStorageConsumer(Home);
+export default Home;

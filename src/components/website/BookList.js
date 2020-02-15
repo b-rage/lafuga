@@ -37,10 +37,11 @@ const BookList = () => {
 
     return (
         <>
-            <h1 className="ml-35">Listado Libros</h1>
-            <br></br>
             {state.listBooks.map(item => {
-            return <BookCardItem key={item.title}  title={item.title} id={item.idBook} pubDate={item.pubDate} pvp={item.pvp} author={item.author} authorId={item.authorId} imageUrl={item.imageUrl}/>
+
+            return <div className="col-md-3 book-card">
+                <BookCardItem key={item.title}  title={item.title} id={item.idBook} pubDate={item.pubDate} pvp={item.pvp} author={item.author} authorId={item.authorId} imageUrl={item.imageUrl}/>
+            </div> 
             })}
         </>
     );
