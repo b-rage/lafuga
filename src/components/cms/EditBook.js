@@ -10,7 +10,7 @@ import MetaTags from 'react-meta-tags';
 const collections = [{ op: 'En Serio' }, { op: 'Escalones' }, { op: 'Humoris Causa' }]
 
 
-const AddBook = () => {
+const EditBook = (props) => {
 
 
   const [state, updateState] = useState({
@@ -54,18 +54,41 @@ const AddBook = () => {
 
 
   useEffect(() => {
-
-    db.collection("authors")
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(doc => {
-          authors.push({ author: doc.data().author, imageAuthorUrl: doc.data().imageAuthorUrl, description: doc.data().description, idAuthor: doc.id })
+    const db = firebaseApp.firestore();
+      db.collection(`books`)
+        .doc(`${props.id}`)
+        .get()
+        .then(function (doc) {
+            updateState({
+                author: doc.data().author,
+                authorId: doc.data().authorId,
+                imageAuthorUrl: doc.data().imageAuthorUrl,
+                title: doc.data().title,
+                subtitle: doc.data().subtitle,
+                introduction: doc.data().introduction,
+                translator: doc.data().translator,
+                illustrations: doc.data().illustrations,
+                editedBy: doc.data().editedBy,
+                prologue: doc.data().prologue,
+                format: doc.data().format,
+                binding: doc.data().binding,
+                pages: doc.data().pages,
+                isbn: doc.data().isbn,
+                pvp: doc.data().pvp,
+                description: doc.data().description,
+                collection: doc.data().collection,
+                pubDate: doc.data().pubDate,
+                imageUrl: doc.data().imageUrl,
+                storeUrl: doc.data().storeUrl,
+                startReedUrl: doc.data().startReedUrl,
+                pressNoteUrl: doc.data().pressNoteUrl
+            });
+            console.log('state', state)
+        })
+        .catch(function (error) {
+          console.log("Error getting documents2: ", error);
         });
-      })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
-      });
-  });
+    }, []); 
 
 
   const handleInputChange = e => {
@@ -91,59 +114,41 @@ const AddBook = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    console.log('stateSubmit', state)
 
-    // Add a new document in collection "books"
-    db.collection("books").add({
-      author: state.author,
-      authorId: state.authorId,
-      imageAuthorUrl: state.imageAuthorUrl,
-      title: state.title,
-      subtitle: state.subtitle,
-      introduction: state.introduction,
-      translator: state.translator,
-      illustrations: state.illustrations,
-      editedBy: state.editedBy,
-      prologue: state.prologue,
-      format: state.format,
-      binding: state.binding,
-      pages: state.pages,
-      isbn: state.isbn,
-      pvp: state.pvp,
-      description: state.description,
-      collection: state.collection,
-      pubDate: state.pubDate,
-      imageUrl: state.imageUrl,
-      storeUrl: state.storeUrl,
-      startReedUrl: state.startReedUrl,
-      pressNoteUrl: state.pressNoteUrl
+   // Edit a document in collection "books"
+    db.collection("books").doc(`${props.id}`).set({
+      author: state.author || '',
+      authorId: state.authorId || '',
+      imageAuthorUrl: state.imageAuthorUrl || '',
+      title: state.title || '',
+      subtitle: state.subtitle || '',
+      introduction: state.introduction || '',
+      translator: state.translator || '',
+      illustrations: state.illustrations || '',
+      editedBy: state.editedBy || '',
+      prologue: state.prologue || '',
+      format: state.format || '',
+      binding: state.binding || '',
+      pages: state.pages || '',
+      isbn: state.isbn || '',
+      pvp: state.pvp || '',
+      description: state.description || '',
+      collection: state.collection || '',
+      pubDate: state.pubDate || '',
+      imageUrl: state.imageUrl || '',
+      storeUrl: state.storeUrl || '',
+      startReedUrl: state.startReedUrl || '',
+      pressNoteUrl: state.pressNoteUrl || ''
     })
-      .then((docRef) => {
-        db.collection(`authors`).doc(`${state.authorId}`).collection('authorBooks').add({
-          bookTitle: state.title,
-          bookId: docRef.id
-        })
-        updateState({ ...state, msg: true })
-      })
-      .catch(error => {
+    .then(() => {
+        updateState({msg: true})
+        console.log("Document successfully written!");
+    })
+    .catch(error => {
         console.error("Error writing document: ", error);
-      });
+    }); 
   }
-
-  /* const handleNewsInputChange = e => {
-    updateNews({ ...news, [e.target.name]: e.target.value })
-  }
-
-  const onAddNewsChange = () => {
-    updateAddNews(!addNews)
-  }
-
-  const handleDateNewsChange = e => {
-    updateNews({ ...news, newsDate: moment(new Date(e)).format("DD/MM/YYYY") })
-  };
-
-  const doNewsNoteUrl = (url) => {
-    updateNews({ ...news, newsFileUrl: url })
-  } */
 
   const handleAuthorChange = value => {
     updateState({ ...state, author: value.author, authorId: value.idAuthor, imageAuthorUrl: value.imageAuthorUrl })
@@ -156,13 +161,13 @@ const AddBook = () => {
   return (
     <>
       <MetaTags>
-        <title>Añadir libro</title>
+        <title>Editar libro</title>
         <meta name="description" content="La Fuga Ediciones es un proyecto editorial que nace en 2014 con una propuesta de ficción literaria moderna y universal, en principio centrada en traducciones." />
       </MetaTags>
       <form className="form-class" onSubmit={handleSubmit}>
         <div className="div-class">
           <div>
-          <h1 className="align-text-center">Añadir libro</h1>
+          <h1 className="align-text-center">Editar libro</h1>
           </div>
           <p className="label-class">Autor</p>
           <div className="ml-35">
@@ -183,7 +188,7 @@ const AddBook = () => {
           </div>
           <br></br>
           <p className="label-class">Titulo</p>
-          <input className="input-class" placeholder="Titulo" type="text" onChange={handleInputChange} name="title" value={state.title || ''} required />
+          <input className="input-class" placeholder="Titulo" type="text" onChange={handleInputChange} name="title" value={state.title || ''} />
           <p className="label-class">Subtitulo</p>
           <input className="input-class" placeholder="Subtitulo" type="text" onChange={handleInputChange} name="subtitle" value={state.subtitle || ''} />
           <p className="label-class">Introduccion</p>
@@ -197,17 +202,17 @@ const AddBook = () => {
           <p className="label-class">Prologo</p>
           <input className="input-class" placeholder="Prologo" type="text" onChange={handleInputChange} name="prologue" value={state.prologue || ''} />
           <p className="label-class">Formato</p>
-          <input className="input-class" placeholder="Formato" type="text" onChange={handleInputChange} name="format" value={state.format || ''} required />
+          <input className="input-class" placeholder="Formato" type="text" onChange={handleInputChange} name="format" value={state.format || ''} />
           <p className="label-class">Encuadernacion</p>
-          <input className="input-class" placeholder="Encuadernacion" type="text" onChange={handleInputChange} name="binding" value={state.binding || ''} required />
+          <input className="input-class" placeholder="Encuadernacion" type="text" onChange={handleInputChange} name="binding" value={state.binding || ''} />
           <p className="label-class">Paginas</p>
-          <input className="input-class" placeholder="Paginas" type="text" onChange={handleInputChange} name="pages" value={state.pages || ''} required />
+          <input className="input-class" placeholder="Paginas" type="text" onChange={handleInputChange} name="pages" value={state.pages || ''} />
           <p className="label-class">ISBN</p>
-          <input className="input-class" placeholder="ISBN" type="text" onChange={handleInputChange} name="isbn" value={state.isbn || ''} required />
+          <input className="input-class" placeholder="ISBN" type="text" onChange={handleInputChange} name="isbn" value={state.isbn || ''} />
           <p className="label-class">PVP</p>
-          <input className="input-class" placeholder="PVP" type="text" onChange={handleInputChange} name="pvp" value={state.pvp || ''} required />
+          <input className="input-class" placeholder="PVP" type="text" onChange={handleInputChange} name="pvp" value={state.pvp || ''} />
           <p className="label-class">Descripción</p>
-          <input className="input-class" placeholder="Descripción" type="text" onChange={handleInputChange} name="description" value={state.description || ''} required />
+          <input className="input-class" placeholder="Descripción" type="text" onChange={handleInputChange} name="description" value={state.description || ''} />
           <br></br>
           <p className="label-class">Colección</p>
           <div className="ml-35">
@@ -228,9 +233,9 @@ const AddBook = () => {
           </div>
           <br></br>
           <p className="label-class">Link a tienda</p>
-          <input className="input-class" placeholder="Link a tienda" type="text" onChange={handleInputChange} name="storeUrl" value={state.storeUrl || ''} required />
+          <input className="input-class" placeholder="Link a tienda" type="text" onChange={handleInputChange} name="storeUrl" value={state.storeUrl || ''} />
           <p className="label-class">Portada</p>
-          <FileUpload doImageUrl={doImageUrl} fileType="books" required={true} />
+          <FileUpload doImageUrl={doImageUrl} fileType="books" required={false} />
           <br></br>
           <p className="label-class">Fecha publicacion</p>
           <p className="p-class">{state.pubDate || ''}</p>
@@ -242,33 +247,13 @@ const AddBook = () => {
           <FileUpload doImageUrl={doStartReedUrl} fileType="pdfs" required={false} />
           <p className="label-class">Nota de prensa</p>
           <FileUpload doImageUrl={doPressNoteUrl} fileType="pdfs" required={false} />
-          <br></br><br></br>
-          {/*  <button className="button-class" type="button" onClick={onAddNewsChange}>Añadir Noticia de prensa</button>
-          {addNews &&
-            <>
-              <p className="label-class">Fecha noticia</p>
-              <p className="p-class">{news.newsDate || ''}</p>
-              <DatePicker
-                defaultDate={news.newsDate}
-                onSelect={handleDateNewsChange}
-              />
-              <p className="label-class">Titulo Noticia</p>
-              <input className="input-class" placeholder="Titulo Noticia" type="text" onChange={handleNewsInputChange} name="newsTitle" value={news.newsTitle || ''} required />
-              <p className="label-class">Link Noticia</p>
-              <input className="input-class" placeholder="Link Noticia" type="text" onChange={handleNewsInputChange} name="newsUrl" value={news.newsUrl || ''} />
-              <p className="label-class">Importar fichero noticia</p>
-              <FileUpload doImageUrl={doNewsNoteUrl} fileType="pdfs" required={false} />
-            </>} */}
-          <br></br>
-          {/* <p className="label-class">Titulo Noticia</p>
-          <input className="input-class" placeholder="Titulo Noticia" type="text" onChange={handleInputChange} name="news.newsTitle" value={news.newsTitle || ''} /> */}
-
+          <br></br><br></br>   
           <button className="button-class" type="submit">Guardar</button>
-          {state.msg && <h2>Libro añadido con exito</h2>}
+          {state.msg && <h2>Libro editado con exito</h2>}
         </div>
       </form>
     </>
   );
 }
 
-export default AddBook;
+export default EditBook;

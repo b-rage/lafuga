@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { firebaseApp } from "../../firebase";
 import { Link } from 'react-router-dom';
 import { Route, Redirect, withRouter } from "react-router-dom";
-import "@trendmicro/react-datepicker/dist/react-datepicker.css";
 import MetaTags from 'react-meta-tags';
 
 const AuthorPage = props => {
@@ -78,9 +77,9 @@ const AuthorPage = props => {
 
                       {listAuthorBooks && listAuthorBooks.map(item => {
                         return (
-                          <React.Fragment key={item.title}>
+                          <React.Fragment key={item.bookId}>
                           <br />
-                          <Link to={`/books/${item.bookId}`} key={item.title}  className="book-title">
+                          <Link to={`/books/${item.bookId}`} key={item.bookId}  className="book-title-author">
                             -&nbsp;{item.bookTitle} 
                           </Link>
                             </React.Fragment>

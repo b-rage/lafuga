@@ -13,7 +13,10 @@ import FooterPage from './components/website/FooterPage';
 import Home from './components/website/Home';
 import ContactPage from './components/website/ContactPage';
 import BooksPage from './components/website/BooksPage';
-import EscalonesPage from './components/website/EscalonesPage'
+import EscalonesPage from './components/website/EscalonesPage';
+import DistribucionPage from './components/website/DistribucionPage'
+import EditBook from './components/cms/EditBook';
+import EnSerioPage from './components/website/EnSerioPage'
 
 const App = () => {
 
@@ -23,14 +26,18 @@ const App = () => {
       <StorageProvider>
         <Route path="/login" render={() => <Login  /> } />
         <Route path="/dashboard" render={() => <Dashboard />} />
-        <Route exact path="/dashboard/book/:id" render={(props) => <BookNews id={props.match.params.id}/> } />
+        <Route exact path="/dashboard/news/:id" render={(props) => <BookNews id={props.match.params.id}/> } />
+        <Route exact path="/dashboard/edit-book/:id" render={(props) => <EditBook id={props.match.params.id}/> } />
         <Route exact path="/" render={() => <Home  /> } />
         <Route exact path="/autores" render={() =>  <ListAuthors />} />
         <Route exact path="/autor/:id" render={(props) => <AuthorsPage id={props.match.params.id}/> } />
         <Route exact path="/editorial" render={() => <Editorial  /> } />
         <Route exact path="/contacto" render={() => <ContactPage  /> } />
+        <Route exact path="/distribucion" render={() => <DistribucionPage  /> } />
         <Route exact path="/libros" render={() => <BooksPage  /> } />
         <Route exact path="/libros/escalones" render={() => <EscalonesPage  /> } />
+        <Route exact path="/libros/en-serio" render={() => <EnSerioPage  /> } />
+
         <FooterPage />
       </StorageProvider>
 

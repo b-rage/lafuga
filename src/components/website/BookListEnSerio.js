@@ -4,7 +4,7 @@ import BookCardItem from './BookCardItem';
 import moment from "moment";
 
 
-const BookListEscalones = () => {
+const BookListEnSerio = () => {
 
     const [state, updateState] = useState({ 
         imageUrl: '',
@@ -28,9 +28,8 @@ const BookListEscalones = () => {
               state.listBooks.push({author: doc.data().author, collection: doc.data().collection, authorId: doc.data().authorId, pubDate: doc.data().pubDate, imageUrl: doc.data().imageUrl, title: doc.data().title, pvp: doc.data().pvp, idBook: doc.id})
               updateState({...state, ...state.listBooks})
             });
-            const result = state.listBooks.filter(word => word.collection === 'Escalones');
-            updateState({ listBooks: result });
-            console.log('state.listBooks', result)
+            const result = state.listBooks.filter(word => word.collection === 'En Serio');
+            updateState({ ...state, listBooks: result });
         })
         .then(() => {
             state.listBooks.forEach(item => {
@@ -69,4 +68,4 @@ const BookListEscalones = () => {
     );
 }
 
-export default BookListEscalones;
+export default BookListEnSerio;

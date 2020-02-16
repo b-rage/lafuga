@@ -49,7 +49,9 @@ const BookNews = ({ id }) => {
     <>
       <form className="form-class" onSubmit={handleSubmit}>
         <div className="div-class">
-            <h1 className="ml-35">Añadir nueva Noticia</h1>
+          <div>
+            <h1 className="align-text-center">Añadir Nueva Noticia de prensa</h1>
+          </div>
           <p className="label-class">Fecha noticia</p>
           <p className="p-class">{news.newsDate || ""}</p>
           <DatePicker

@@ -31,7 +31,8 @@ const ListAuthors = () => {
             dateAuthor: doc.data().dateAuthor,
             idAuthor: doc.id
           });
-          updateState({ ...state, ...state.listAuthors });
+          const result = state.listAuthors.filter(word => word.author !== 'Autores Varios');
+          updateState({ ...state, listAuthors: result });
         });
       })
       .catch(function (error) {
