@@ -16,7 +16,8 @@ import BooksPage from './components/website/BooksPage';
 import EscalonesPage from './components/website/EscalonesPage';
 import DistribucionPage from './components/website/DistribucionPage'
 import EditBook from './components/cms/EditBook';
-import EnSerioPage from './components/website/EnSerioPage'
+import EnSerioPage from './components/website/EnSerioPage';
+import HumorisPage from './components/website/HumorisPage';
 
 const App = () => {
 
@@ -37,6 +38,7 @@ const App = () => {
         <Route exact path="/libros" render={() => <BooksPage  /> } />
         <Route exact path="/libros/escalones" render={() => <EscalonesPage  /> } />
         <Route exact path="/libros/en-serio" render={() => <EnSerioPage  /> } />
+        <Route exact path="/libros/humoris" render={() => <HumorisPage  /> } />
 
         <FooterPage />
       </StorageProvider>

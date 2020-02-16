@@ -92,7 +92,7 @@ code {
 }
 
 .button-class-list-edit {
-  background: #4a0a1a;
+  background: #b72734;
   border-radius: 4px;
   color: #fff;
   display: inline-block;
@@ -491,26 +491,11 @@ code {
 
   .content-first-escalones {
     background-color: #fbefc5;
+    padding-bottom: 30px;
   }
+
   
-  
-  .fila1 {
-    margin-top: 50px;
-  }
-  
-  .content_first_escalones {
-    background-color: #FFEDBE;
-    opacity: 0.9;
-    width: 100%;
-    min-height: 450px;
-    margin-bottom: 40px;
-  }
-  
-  #content-home {
-    margin-left: 0px;
-  }
-  
-  
+ 
   .escalones-container{
     margin-top: 10px;
     background-color: #FFEDBE !important;
@@ -539,10 +524,10 @@ code {
   }
   
   .book-title {
-    width: 150px;
+    width: 160px;
     word-wrap: break-word;
     color: #000 !important;
-    font-size: 13px !important;
+    font-size: 14px !important;
     margin-top: -10px !important;
     font-weight: bold !important;
     line-height: 1;

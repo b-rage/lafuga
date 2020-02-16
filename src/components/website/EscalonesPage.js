@@ -11,7 +11,7 @@ const EscalonesPage = () => {
     return (
         <>
             <MetaTags>
-                <title>Escalones</title>
+                <title>Colección Escalones</title>
                 <meta name="description" content="La Fuga Ediciones es un proyecto editorial que nace en 2014 con una propuesta de ficción literaria moderna y universal, en principio centrada en traducciones." />
             </MetaTags>
             <div className="content-first-escalones">

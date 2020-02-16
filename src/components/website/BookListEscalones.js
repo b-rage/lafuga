@@ -15,7 +15,8 @@ const BookListEscalones = () => {
         idBook: '',
         pubDate:'',
         pvp: '',
-        listBooks: []
+        listBooks: [],
+        listEscalones: []
       });
     
       useEffect(() => {
@@ -29,25 +30,30 @@ const BookListEscalones = () => {
               updateState({...state, ...state.listBooks})
             });
             const result = state.listBooks.filter(word => word.collection === 'Escalones');
-            updateState({ listBooks: result });
-            console.log('state.listBooks', result)
+            updateState({ ...state, listEscalones: result });
         })
-        .then(() => {
-            state.listBooks.forEach(item => {
+/*         .then(() => {
+            state.listEscalones.forEach(item => {
                 item.pubDate = moment(`${item.pubDate}`, 'DD/MM/YYYY').format('YYYY/MM/DD');
             })
         })
         .then(() => {
-            const _arr = state.listBooks.sort(function compare(a, b) {
-                let dateA = new Date(a.pubDate);
-                let dateB = new Date(b.pubDate);
-                return dateA - dateB;
-            });
-            _arr.reverse().forEach(item => {
-                item.pubDate = moment(`${item.pubDate}`, 'YYYY/MM/DD').format('DD/MM/YYYY');
-            })
-            updateState({ ...state, listBooks: _arr })
-        })
+            if(state.listEscalones.length > 1) {
+                const _arr = state.listEscalones.sort(function compare(a, b) {
+                    let dateA = new Date(a.pubDate);
+                    let dateB = new Date(b.pubDate);
+                    return dateA - dateB;
+                });
+                _arr.reverse().forEach(item => {
+                    item.pubDate = moment(`${item.pubDate}`, 'YYYY/MM/DD').format('DD/MM/YYYY');
+                })
+                updateState({ ...state, listEscalones: _arr })
+            }else{
+                state.listEscalones.forEach(item => {
+                    item.pubDate = moment(`${item.pubDate}`, 'YYYY/MM/DD').format('DD/MM/YYYY');
+                })
+            }
+        }) */
         .catch(function (error) {
             console.log("Error getting documents: ", error);
         });
@@ -59,7 +65,7 @@ const BookListEscalones = () => {
 
     return (
         <>
-            {state.listBooks.map(item => {
+            {state.listEscalones.map(item => {
 
             return <div className="col-md-3 book-card" key={item.title}>
                 <BookCardItem key={item.title}  title={item.title} id={item.idBook} pubDate={item.pubDate} pvp={item.pvp} author={item.author} authorId={item.authorId} imageUrl={item.imageUrl}/>
