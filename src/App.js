@@ -4,7 +4,8 @@ import { Route, Redirect, withRouter } from 'react-router-dom';
 import { StorageProvider } from "./context/Storage";
 import Dashboard from './components/cms/Dashboard';
 import Login from './components/cms/Login';
-import BookNews from './components/cms/BookNews';
+import ListNews from './components/cms/ListNews';
+import AddNews from './components/cms/AddNews';
 import ListAuthors from './components/website/ListAuthors';
 import AuthorsPage from './components/website/AuthorPage';
 import NavBarComponent from './components/website/NavBarComponent.jsx';
@@ -28,7 +29,8 @@ const App = () => {
       <StorageProvider>
         <Route path="/login" render={() => <Login  /> } />
         <Route path="/dashboard" render={() => <Dashboard />} />
-        <Route exact path="/dashboard/news/:id" render={(props) => <BookNews id={props.match.params.id}/> } />
+        <Route exact path="/dashboard/news/:id/add-news" render={(props) => <AddNews id={props.match.params.id}/> } />
+        <Route exact path="/dashboard/news/:id" render={(props) => <ListNews id={props.match.params.id}/> } />
         <Route exact path="/dashboard/edit-book/:id" render={(props) => <EditBook id={props.match.params.id}/> } />
         <Route exact path="/" render={() => <Home  /> } />
         <Route exact path="/autores" render={() =>  <ListAuthors />} />

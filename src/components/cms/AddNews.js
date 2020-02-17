@@ -5,7 +5,7 @@ import DatePicker from "@trendmicro/react-datepicker";
 import "@trendmicro/react-datepicker/dist/react-datepicker.css";
 import FileUpload from "./FileUpload";
 
-const BookNews = ({ id }) => {
+const AddNews = ({ props, id }) => {
   const db = firebaseApp.firestore();
 
   const [news, updateNews] = useState({
@@ -45,6 +45,7 @@ const BookNews = ({ id }) => {
     updateNews({ ...news, newsDate: moment(new Date(e)).format("DD/MM/YYYY") });
   };
 
+
   return (
     <>
       <form className="form-class" onSubmit={handleSubmit}>
@@ -76,6 +77,7 @@ const BookNews = ({ id }) => {
             onChange={handleNewsInputChange}
             name="newsUrl"
             value={news.newsUrl || ""}
+            
           />
           <p className="label-class">Importar fichero noticia</p>
           <FileUpload
@@ -92,4 +94,4 @@ const BookNews = ({ id }) => {
   );
 };
 
-export default BookNews;
+export default AddNews;

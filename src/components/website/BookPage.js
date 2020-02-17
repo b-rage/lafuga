@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { firebaseApp } from "../../firebase";
 import { Link } from "react-router-dom";
-import { Route, Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import MetaTags from "react-meta-tags";
+import NewsItem from './NewsItem';
 
 const BookPage = props => {
   const [state, updateState] = useState({
@@ -38,7 +39,7 @@ const BookPage = props => {
     db.collection(`books`)
       .doc(`${props.id}`)
       .get()
-      .then(function(doc) {
+      .then(function (doc) {
         updateState({
           author: doc.data().author || "",
           authorId: doc.data().authorId || "",
@@ -69,23 +70,17 @@ const BookPage = props => {
 
         docRef
           .get()
-          .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-                console.log('doc.data()', doc.data())
-              listNews.push({
-                newsDate: doc.data().newsDate,
-                newsFileUrl: doc.data().newsFileUrl,
-                newsTitle: doc.data().newsTitle,
-                newsUrl: doc.data().newsUrl
-              });
-              setListNews(...listNews);
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              listNews.push(doc.data());
+              setListNews([...listNews]);
             });
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.log("Error getting documents: ", error);
           });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("Error getting documents2: ", error);
       });
   }, []);
@@ -130,16 +125,7 @@ const BookPage = props => {
               <table>
                 <tbody>
                   <tr>
-                    <td>AUTOR:</td>
-                    <td>
-                      <Link
-                        to={`/autor/${state.authorId}`}
-                        key={props.id}
-                        className="book-title-author"
-                      >
-                        {state.author}
-                      </Link>
-                    </td>
+                    <td>AUTOR:</td><td><Link to={`/autor/${state.authorId}`} key={props.id} className="book-title-author">{state.author}</Link></td>
                   </tr>
                   <tr>
                     <td>TÍTULO:</td>
@@ -296,31 +282,21 @@ const BookPage = props => {
         </div>
       </div>
 
-        {listNews && <div class="container">
-          <div class="row">
-            <div class="col-xs-12 colo-lg-12">
-              <br />
-              <br />
-              <h3>Noticias de Prensa</h3>
-              <div>
-                {listNews.newsDate && listNews.newsDate}
-                <br></br>
-                {listNews.newsTitle && listNews.newsTitle}
-                <br />
-                {listNews.newsUrl && 
-                <a href={listNews.newsUrl} target="_blank">
-                 {listNews.newsUrl}
-                </a>}
-                <br />
-                {listNews.newsFileUrl && 
-                <a href={listNews.newsFileUrl} target="_blank">
-                 {listNews.newsFileUrl}
-                </a>}
-              </div>
-              <br />
-            </div>
+      {/* <NewsItem newsDate={item.newsDate} */}
+
+      {(listNews.length > 0) && <div className="container">
+        <div className="row">
+          <div className="col-xs-12 colo-lg-12">
+            <br />
+            <br />
+            <h3>Noticias de Prensa</h3>
+            {listNews.map(item => {
+              return <NewsItem key={item.newsTitle} newsTitle={item.newsTitle} newsUrl={item.newsUrl} newsDate={item.newsDate} newsFileUrl={item.newsFileUrl} />
+            })}
+            <br />
           </div>
-        </div>}
+        </div>
+      </div>}
     </>
   );
 };

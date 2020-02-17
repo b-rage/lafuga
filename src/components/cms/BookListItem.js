@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from 'react-router-dom';
 
 const BookListItem = ({ title, id }) => {
@@ -13,7 +13,7 @@ const BookListItem = ({ title, id }) => {
           <div style={{ display: 'flex', flexWrap: 'no-wrap' }}>
             <div>
               <Link className="button-class-list" to={`/dashboard/news/${id}`} style={{ textDecoration: 'none' }}>
-                añadir noticia de prensa
+                gestionar noticias de prensa
           </Link>
             </div>
             <div style={{ marginLeft: '20px', marginRight:'10px' }}>
