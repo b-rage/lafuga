@@ -79,7 +79,7 @@ const AuthorPage = props => {
                         return (
                           <React.Fragment key={item.bookId}>
                           <br />
-                          <Link to={`/books/${item.bookId}`} key={item.bookId}  className="book-title-author">
+                          <Link to={`/libro/${item.bookId}`} key={item.bookId}  className="book-title-author">
                             -&nbsp;{item.bookTitle} 
                           </Link>
                             </React.Fragment>

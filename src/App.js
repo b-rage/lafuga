@@ -18,6 +18,7 @@ import DistribucionPage from './components/website/DistribucionPage'
 import EditBook from './components/cms/EditBook';
 import EnSerioPage from './components/website/EnSerioPage';
 import HumorisPage from './components/website/HumorisPage';
+import BookPage from './components/website/BookPage'
 
 const App = () => {
 
@@ -32,6 +33,7 @@ const App = () => {
         <Route exact path="/" render={() => <Home  /> } />
         <Route exact path="/autores" render={() =>  <ListAuthors />} />
         <Route exact path="/autor/:id" render={(props) => <AuthorsPage id={props.match.params.id}/> } />
+        <Route exact path="/libro/:id" render={(props) => <BookPage id={props.match.params.id}/> } />
         <Route exact path="/editorial" render={() => <Editorial  /> } />
         <Route exact path="/contacto" render={() => <ContactPage  /> } />
         <Route exact path="/distribucion" render={() => <DistribucionPage  /> } />

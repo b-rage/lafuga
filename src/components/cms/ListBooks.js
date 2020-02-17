@@ -23,7 +23,6 @@ const ListBooks = () => {
                 querySnapshot.forEach(doc => {
                     state.listBooks.push({ author: doc.data().author, imageUrl: doc.data().imageUrl, title: doc.data().title, idBook: doc.id })
                     updateState({ ...state, ...state.listBooks })
-                    console.log(state.listBooks);
                 });
             })
             .catch(function (error) {

@@ -17,9 +17,7 @@ const BookListEnSerio = () => {
         pvp: '',
         listBooks: []
       });
-
-      const [listEnSerio, setListEnSerio] = useState([])
-    
+   
       useEffect(() => {
     
         const db = firebaseApp.firestore();
@@ -32,52 +30,26 @@ const BookListEnSerio = () => {
             });
         })
         .then(() => {
-            const result = state.listBooks.filter(word => word.collection === 'En Serio');
-            setListEnSerio(result)
+            state.listBooks.forEach(item => {
+                item.pubDate = moment(`${item.pubDate}`, 'DD/MM/YYYY').format('YYYY/MM/DD');
+            })
+            state.listBooks.sort(function compare(a, b) {
+                let dateA = new Date(a.pubDate);
+                let dateB = new Date(b.pubDate);
+                return dateA - dateB;
+            });
+            state.listBooks.reverse().forEach(item => {
+                item.pubDate = moment(`${item.pubDate}`, 'YYYY/MM/DD').format('DD/MM/YYYY');
+            })            
         })
         .then(() => {
-            console.log('object', listEnSerio)
-            if(listEnSerio.lenght > 1) {
+            const result = state.listBooks.filter(word => word.collection === 'En Serio');
+            updateState({...state, listBooks: result})
 
-                listEnSerio.forEach(item => {
-                    item.pubDate.moment(`${item.pubDate}`, 'DD/MM/YYYY').format('YYYY/MM/DD');
-                })
-                const _arr = listEnSerio.sort(function compare(a, b) {
-                    let dateA = new Date(a.pubDate);
-                    let dateB = new Date(b.pubDate);
-                    return dateA - dateB;
-                });
-                _arr.reverse().forEach(item => {
-                    item.pubDate = moment(`${item.pubDate}`, 'YYYY/MM/DD').format('DD/MM/YYYY');
-                })
-                setListEnSerio(_arr)
-            }else{
-                listEnSerio.forEach(item => {
-                    item.pubDate = moment(`${item.pubDate}`, 'YYYY/MM/DD').format('DD/MM/YYYY');
-                })
-            }
         })
-        /* .then(() => {
-            if(listEnSerio.lenght > 1) {
-                const _arr = listEnSerio.sort(function compare(a, b) {
-                    let dateA = new Date(a.pubDate);
-                    let dateB = new Date(b.pubDate);
-                    return dateA - dateB;
-                });
-                _arr.reverse().forEach(item => {
-                    item.pubDate = moment(`${item.pubDate}`, 'YYYY/MM/DD').format('DD/MM/YYYY');
-                })
-                setListEnSerio(_arr)
-            }else{
-                listEnSerio.forEach(item => {
-                    item.pubDate = moment(`${item.pubDate}`, 'YYYY/MM/DD').format('DD/MM/YYYY');
-                })
-            }
-        }) */ 
         .catch(function (error) {
             console.log("Error getting documents: ", error);
         });
-          //updateState(data.docs.map(doc => ({ ...doc.data(), id: doc.id }))); 
     
       }, []);
 
@@ -85,7 +57,7 @@ const BookListEnSerio = () => {
 
     return (
         <>
-            {listEnSerio.map(item => {
+            {state.listBooks.map(item => {
 
             return <div className="col-md-3 book-card" key={item.title}>
                 <BookCardItem key={item.title}  title={item.title} id={item.idBook} pubDate={item.pubDate} pvp={item.pvp} author={item.author} authorId={item.authorId} imageUrl={item.imageUrl}/>
