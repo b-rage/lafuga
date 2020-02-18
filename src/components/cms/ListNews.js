@@ -6,7 +6,7 @@ import MetaTags from "react-meta-tags";
 import { useHistory } from "react-router";
 
 const ListNews = props => {
-  //const history = useHistory();
+  const history = useHistory();
 
   const [state, updateState] = useState({
     newsTitle: "",
@@ -25,7 +25,7 @@ const ListNews = props => {
 
   useEffect(() => {
     getNews();
-  }, [listBookNews]);
+  }, []);
 
   const getNews = () => {
     const docRef = db.collection(`books/${props.id}/news`);
@@ -42,7 +42,6 @@ const ListNews = props => {
             idNews: doc.id
           });
         });
-        console.log('state.listNews', state.listNews)
         setListBookNews(state.listNews);
       })
       .catch(function(error) {
@@ -58,8 +57,8 @@ const ListNews = props => {
         .doc(`${idNews}`)
         .delete()
         .then(function() {
-          getNews();
           setMsg(true);
+          history.push('/dashboard');
         })
         .catch(function(error) {
           console.error("Error removing document: ", error);
@@ -67,12 +66,12 @@ const ListNews = props => {
     }
   };
 
-  /* const goBack = () => {
-    history.goBack();
-  }; */
+  const goBack = () => {
+    history.push('/dashboard');
+  };
 
   return (
-    <>
+    <div className="div-list-news">
       <MetaTags>
         <title>Lista Noticias de prensa</title>
         <meta
@@ -82,10 +81,9 @@ const ListNews = props => {
       </MetaTags>
       <br></br>
       <h1 className="align-text-center">Lista Noticias de prensa</h1>
-      
       <br></br>
-        <button className="arrow" /* onClick={goBack} */>
-          &#60; ATRAS
+      <button className="arrow" onClick={goBack}>
+              &#60;&#60;&#60; ATRAS
         </button>
       <div className="align-text-center">
         <Link
@@ -112,7 +110,7 @@ const ListNews = props => {
           />
         );
       })}
-    </>
+    </div>
   );
 };
 

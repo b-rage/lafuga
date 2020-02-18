@@ -29,7 +29,6 @@ const BookList = () => {
                 querySnapshot.forEach(doc => {
                     state.listBooks.push({ author: doc.data().author, authorId: doc.data().authorId, pubDate: doc.data().pubDate, imageUrl: doc.data().imageUrl, title: doc.data().title, pvp: doc.data().pvp, idBook: doc.id })
                     updateState({ ...state, ...state.listBooks })
-                    console.log(state.listBooks);
                 });
             })
             .then(() => {

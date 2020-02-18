@@ -25,29 +25,28 @@ const App = () => {
 
   return (
     <div className="App">
-              <NavBarComponent />
+      <NavBarComponent />
       <StorageProvider>
-        <Route path="/login" render={() => <Login  /> } />
-        <Route path="/dashboard" render={() => <Dashboard />} />
-        <Route exact path="/dashboard/news/:id/add-news" render={(props) => <AddNews id={props.match.params.id}/> } />
-        <Route exact path="/dashboard/news/:id" render={(props) => <ListNews id={props.match.params.id}/> } />
-        <Route exact path="/dashboard/edit-book/:id" render={(props) => <EditBook id={props.match.params.id}/> } />
-        <Route exact path="/" render={() => <Home  /> } />
-        <Route exact path="/autores" render={() =>  <ListAuthors />} />
-        <Route exact path="/autor/:id" render={(props) => <AuthorsPage id={props.match.params.id}/> } />
-        <Route exact path="/libro/:id" render={(props) => <BookPage id={props.match.params.id}/> } />
-        <Route exact path="/editorial" render={() => <Editorial  /> } />
-        <Route exact path="/contacto" render={() => <ContactPage  /> } />
-        <Route exact path="/distribucion" render={() => <DistribucionPage  /> } />
-        <Route exact path="/libros" render={() => <BooksPage  /> } />
-        <Route exact path="/libros/escalones" render={() => <EscalonesPage  /> } />
-        <Route exact path="/libros/en-serio" render={() => <EnSerioPage  /> } />
-        <Route exact path="/libros/humoris" render={() => <HumorisPage  /> } />
-
+        <Route path="/login" render={() => <Login />} />
+        <Route exact path="/dashboard/" render={() => <Dashboard />} />
+        <Route exact path="/dashboard/news/:id/add-news" render={(props) => <AddNews id={props.match.params.id} />} />
+        <Route exact path="/dashboard/news/:id" render={(props) => <ListNews id={props.match.params.id} />} />
+        <Route exact path="/dashboard/edit-book/:id" render={(props) => <EditBook id={props.match.params.id} />} />
+        <Route exact path="/" render={() => <Home />} />
+        <Route exact path="/autores" render={() => <ListAuthors />} />
+        <Route exact path="/autor/:id" render={(props) => <AuthorsPage id={props.match.params.id} />} />
+        <Route exact path="/libro/:id" render={(props) => <BookPage id={props.match.params.id} />} />
+        <Route exact path="/editorial" render={() => <Editorial />} />
+        <Route exact path="/contacto" render={() => <ContactPage />} />
+        <Route exact path="/distribucion" render={() => <DistribucionPage />} />
+        <Route exact path="/libros" render={() => <BooksPage />} />
+        <Route exact path="/libros/escalones" render={() => <EscalonesPage />} />
+        <Route exact path="/libros/en-serio" render={() => <EnSerioPage />} />
+        <Route exact path="/libros/humoris" render={() => <HumorisPage />} />
         <FooterPage />
       </StorageProvider>
 
-      
+
     </div>
   );
 }

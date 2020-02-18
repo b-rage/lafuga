@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { firebaseApp } from "../../firebase";
 import moment from "moment";
 import DatePicker from "@trendmicro/react-datepicker";
@@ -50,6 +50,10 @@ const AddNews = ({ props, id }) => {
     updateNews({ ...news, newsDate: moment(new Date(e)).format("DD/MM/YYYY") });
   };
 
+  const goBack = () => {
+    history.goBack();
+  };
+
 
   return (
     <>
@@ -57,6 +61,10 @@ const AddNews = ({ props, id }) => {
         <div className="div-class">
           <div>
             <h1 className="align-text-center">Añadir Nueva Noticia de prensa</h1>
+            <br></br>
+            <button className="arrow" onClick={goBack}>
+              &#60;&#60;&#60; ATRAS
+            </button>
           </div>
           <p className="label-class">Fecha noticia</p>
           <p className="p-class">{news.newsDate || ""}</p>
@@ -82,7 +90,7 @@ const AddNews = ({ props, id }) => {
             onChange={handleNewsInputChange}
             name="newsUrl"
             value={news.newsUrl || ""}
-            
+
           />
           <p className="label-class">Importar fichero noticia</p>
           <FileUpload

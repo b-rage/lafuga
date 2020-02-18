@@ -6,11 +6,14 @@ import '@trendmicro/react-datepicker/dist/react-datepicker.css';
 import FileUpload from './FileUpload';
 import Select from 'react-select';
 import MetaTags from 'react-meta-tags';
+import { useHistory } from "react-router";
 
 const collections = [{ op: 'En Serio' }, { op: 'Escalones' }, { op: 'Humoris Causa' }]
 
 
 const EditBook = (props) => {
+
+  const history = useHistory();
 
 
   const [state, updateState] = useState({
@@ -55,40 +58,40 @@ const EditBook = (props) => {
 
   useEffect(() => {
     const db = firebaseApp.firestore();
-      db.collection(`books`)
-        .doc(`${props.id}`)
-        .get()
-        .then(function (doc) {
-            updateState({
-                author: doc.data().author,
-                authorId: doc.data().authorId,
-                imageAuthorUrl: doc.data().imageAuthorUrl,
-                title: doc.data().title,
-                subtitle: doc.data().subtitle,
-                introduction: doc.data().introduction,
-                translator: doc.data().translator,
-                illustrations: doc.data().illustrations,
-                editedBy: doc.data().editedBy,
-                prologue: doc.data().prologue,
-                format: doc.data().format,
-                binding: doc.data().binding,
-                pages: doc.data().pages,
-                isbn: doc.data().isbn,
-                pvp: doc.data().pvp,
-                description: doc.data().description,
-                collection: doc.data().collection,
-                pubDate: doc.data().pubDate,
-                imageUrl: doc.data().imageUrl,
-                storeUrl: doc.data().storeUrl,
-                startReedUrl: doc.data().startReedUrl,
-                pressNoteUrl: doc.data().pressNoteUrl
-            });
-            console.log('state', state)
-        })
-        .catch(function (error) {
-          console.log("Error getting documents2: ", error);
+    db.collection(`books`)
+      .doc(`${props.id}`)
+      .get()
+      .then(function (doc) {
+        updateState({
+          author: doc.data().author,
+          authorId: doc.data().authorId,
+          imageAuthorUrl: doc.data().imageAuthorUrl,
+          title: doc.data().title,
+          subtitle: doc.data().subtitle,
+          introduction: doc.data().introduction,
+          translator: doc.data().translator,
+          illustrations: doc.data().illustrations,
+          editedBy: doc.data().editedBy,
+          prologue: doc.data().prologue,
+          format: doc.data().format,
+          binding: doc.data().binding,
+          pages: doc.data().pages,
+          isbn: doc.data().isbn,
+          pvp: doc.data().pvp,
+          description: doc.data().description,
+          collection: doc.data().collection,
+          pubDate: doc.data().pubDate,
+          imageUrl: doc.data().imageUrl,
+          storeUrl: doc.data().storeUrl,
+          startReedUrl: doc.data().startReedUrl,
+          pressNoteUrl: doc.data().pressNoteUrl
         });
-    }, []); 
+        console.log('state', state)
+      })
+      .catch(function (error) {
+        console.log("Error getting documents2: ", error);
+      });
+  }, []);
 
 
   const handleInputChange = e => {
@@ -116,7 +119,7 @@ const EditBook = (props) => {
     e.preventDefault();
     console.log('stateSubmit', state)
 
-   // Edit a document in collection "books"
+    // Edit a document in collection "books"
     db.collection("books").doc(`${props.id}`).set({
       author: state.author || '',
       authorId: state.authorId || '',
@@ -141,13 +144,13 @@ const EditBook = (props) => {
       startReedUrl: state.startReedUrl || '',
       pressNoteUrl: state.pressNoteUrl || ''
     })
-    .then(() => {
-        updateState({msg: true})
+      .then(() => {
+        updateState({ msg: true })
         console.log("Document successfully written!");
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error("Error writing document: ", error);
-    }); 
+      });
   }
 
   const handleAuthorChange = value => {
@@ -158,6 +161,10 @@ const EditBook = (props) => {
     updateState({ ...state, collection: value.op })
   }
 
+  const goBack = () => {
+    history.push('/dashboard');
+  };
+
   return (
     <>
       <MetaTags>
@@ -167,7 +174,11 @@ const EditBook = (props) => {
       <form className="form-class" onSubmit={handleSubmit}>
         <div className="div-class">
           <div>
-          <h1 className="align-text-center">Editar libro</h1>
+            <br></br>
+            <button className="arrow" onClick={goBack}>
+              &#60;&#60;&#60; ATRAS
+            </button>
+            <h1 className="align-text-center">Editar libro</h1>
           </div>
           <p className="label-class">Autor</p>
           <div className="ml-35">
@@ -247,7 +258,7 @@ const EditBook = (props) => {
           <FileUpload doImageUrl={doStartReedUrl} fileType="pdfs" required={false} />
           <p className="label-class">Nota de prensa</p>
           <FileUpload doImageUrl={doPressNoteUrl} fileType="pdfs" required={false} />
-          <br></br><br></br>   
+          <br></br><br></br>
           <button className="button-class" type="submit">Guardar</button>
           {state.msg && <h2>Libro editado con exito</h2>}
         </div>

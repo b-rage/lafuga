@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Redirect, withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 
 
 
@@ -18,7 +18,7 @@ const Login = (props) => {
     const handleSubmit = e => {
         e.preventDefault();
         if(state.username === 'fuga' && state.password === 'fuga') {
-            props.history.push('/dashboard');
+            props.history.push('/dashboard/list-book');
         }
     }
 

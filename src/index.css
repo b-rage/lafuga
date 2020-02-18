@@ -73,7 +73,7 @@ code {
   padding: 15px 25px;
   font-weight: bold;
   margin: 10px auto;
-  width: 200px;
+  width: 234px;
   border: none;
 }
 
@@ -92,7 +92,7 @@ code {
 }
 
 .button-class-list-edit {
-  background: #b72734;
+  background: #f5792b;
   border-radius: 4px;
   color: #fff;
   display: inline-block;
@@ -105,12 +105,30 @@ code {
   text-align: center;
 }
 
+.button-class-list-delete {
+  background: #b72734;
+  border-radius: 4px;
+  color: #fff;
+  display: inline-block;
+  font-size: 13px;
+  padding: 15px 25px;
+  font-weight: bold;
+  margin: 10px auto;
+  width: 201px;
+  border: none;
+  text-align: center;
+}
+
 .div-class {
   display: flex;
   justify-content: center;
   flex-direction: column;
   width: 90%;
   margin-top: 30px;
+}
+
+.div-list-news {
+  min-height: 600px;
 }
 
 .middle {
@@ -161,7 +179,11 @@ code {
   margin-top: 5px;
   padding: 20px;
   border-bottom: 1px solid #024e8a;
+  height: 140px;
+
 }
+
+
 
 .buttons-container {
   width: 300px;
@@ -241,7 +263,7 @@ code {
 }
 
 .store-button {
-  background: #676165;
+  background: #919191;
   border-radius: 4px;
   color: #fff;
   display: inline-block;
@@ -624,6 +646,29 @@ form p {
   text-align: left;
   font-size: 20px;
   margin-top: 30px;
+}
+
+.submit {
+  color: #fff;
+  font-size: 13;
+  width: 100px;
+  height: 32px;
+  border: none;
+  margin-bottom: 20px;
+  padding: 0;
+  background-color: #474747;
+}
+
+.submit-disabled {
+  color: #fff;
+  font-size: 13;
+  width: 100px;
+  height: 32px;
+  border: none;
+  margin-bottom: 20px;
+  padding: 0;
+  background-color: #474747;
+  opacity: 0.5;
 }
 
 

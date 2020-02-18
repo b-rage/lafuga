@@ -19,6 +19,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.1",
     "react-select": "^3.0.8",
+    "reactfire": "^2.0.0-alpha.3",
     "serve": "^11.3.0"
   },
   "scripts": {

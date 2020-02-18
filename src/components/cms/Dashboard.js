@@ -21,7 +21,7 @@ const Dashboard = () => {
       main: () => <AddAuthor />
     },
     {
-      path: `/dashboard/list-books`,
+      path: `/dashboard`,
       sidebar: () => <div>lista libros</div>,
       main: () => <ListBooks />
     }

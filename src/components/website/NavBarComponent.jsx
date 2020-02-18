@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem } from 'mdbreact'
 import '@trendmicro/react-datepicker/dist/react-datepicker.css';
 import { withRouter } from 'react-router-dom'
