@@ -4,15 +4,19 @@ import moment from "moment";
 import DatePicker from "@trendmicro/react-datepicker";
 import "@trendmicro/react-datepicker/dist/react-datepicker.css";
 import FileUpload from "./FileUpload";
+import { useHistory } from 'react-router';
+
+
 
 const AddNews = ({ props, id }) => {
   const db = firebaseApp.firestore();
+  const history = useHistory();
 
   const [news, updateNews] = useState({
     newsTitle: "",
     newsDate: moment(new Date(Date.now())).format("YYYY-MM-DD"),
     newsUrl: "",
-    newsFileUrl: ""
+    newsFileUrl: "",
   });
 
   const handleSubmit = e => {
@@ -27,6 +31,7 @@ const AddNews = ({ props, id }) => {
       })
       .then(() => {
         console.log("Document successfully written!");
+        history.push(`/dashboard/news/${id}`)
       })
       .catch(error => {
         console.error("Error writing document: ", error);
