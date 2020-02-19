@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { HashRouter } from 'react-router-dom';
@@ -11,9 +11,11 @@ import { FirebaseAppProvider } from 'reactfire'
 
 ReactDOM.render((
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+        <Suspense fallback={'conectando...'}>
         <HashRouter>
             <App />
         </HashRouter>
+        </Suspense>
     </FirebaseAppProvider>
 ), document.getElementById('root'));
 

@@ -19,19 +19,23 @@ import DistribucionPage from './components/website/DistribucionPage'
 import EditBook from './components/cms/EditBook';
 import EnSerioPage from './components/website/EnSerioPage';
 import HumorisPage from './components/website/HumorisPage';
-import BookPage from './components/website/BookPage'
+import BookPage from './components/website/BookPage';
+import { useUser } from 'reactfire';
 
 const App = () => {
 
+  const use = useUser();
   return (
     <div className="App">
       <NavBarComponent />
       <StorageProvider>
         <Route path="/login" render={() => <Login />} />
+        {use && <>
         <Route exact path="/dashboard/" render={() => <Dashboard />} />
         <Route exact path="/dashboard/news/:id/add-news" render={(props) => <AddNews id={props.match.params.id} />} />
         <Route exact path="/dashboard/news/:id" render={(props) => <ListNews id={props.match.params.id} />} />
         <Route exact path="/dashboard/edit-book/:id" render={(props) => <EditBook id={props.match.params.id} />} />
+        </>}
         <Route exact path="/" render={() => <Home />} />
         <Route exact path="/autores" render={() => <ListAuthors />} />
         <Route exact path="/autor/:id" render={(props) => <AuthorsPage id={props.match.params.id} />} />

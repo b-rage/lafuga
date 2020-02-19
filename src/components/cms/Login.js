@@ -1,42 +1,48 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import 'firebase/auth';
+import { useFirebaseApp, useUser } from 'reactfire';
+import firebaseConfig from '../../firebase-config';
 
 
 
 
 const Login = (props) => {
+    
+  const firebase = useFirebaseApp();
+  const user = useUser();
 
-    const [state, updateState] = useState({
-        username: '',
-        password: ''
-      });
+  const [state, updateState] = useState({
+      email: '',
+      password: ''
+    });
 
-    const handleInputChange = e => {
-        updateState({ ...state, [e.target.name]: e.target.value })
-    }
+  const handleInputChange = e => {
+      updateState({ ...state, [e.target.name]: e.target.value })
+  }
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        if(state.username === 'fuga' && state.password === 'fuga') {
-            props.history.push('/dashboard/list-book');
-        }
-    }
+   const login = async () => {
+     await firebase.auth().signInWithEmailAndPassword(state.email, state.password);
+     await props.history.push('/dashboard');
+   }
+
+  const handleSubmit = async(e) => {
+      e.preventDefault();
+      await firebase.auth().createUserWithEmailAndPassword(state.email, state.password);
+      /* if(state.username === 'fuga' && state.password === 'fuga') {
+          props.history.push('/dashboard/list-book');
+      } */
+  }
 
     return (
         <>
-        <form className="form-class" onSubmit={handleSubmit}>
         <div className="div-class">
           <p className="label-class">Username</p>
-          <input className="input-class" placeholder="Username" type="text" onChange={handleInputChange} name="username" value={state.username || ''} required />
+          <input className="input-class" placeholder="Email" type="email" onChange={handleInputChange} name="email" value={state.email || ''} required />
           <p className="label-class">Password</p>
-          <input className="input-class" placeholder="Password" type="text" onChange={handleInputChange} name="password" value={state.password || ''} required/>
-
-         
-          <button className="button-class" type="submit">Login</button>
-
-        </div>
-      </form>
-            
+          <input className="input-class" placeholder="Password" type="password" onChange={handleInputChange} name="password" value={state.password || ''} required/>         
+          <button className="button-class" onClick={login}>Login</button>
+        </div>           
         </>
     );
 }
