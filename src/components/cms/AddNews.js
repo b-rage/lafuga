@@ -51,7 +51,7 @@ const AddNews = ({ props, id }) => {
   };
 
   const goBack = () => {
-    history.goBack();
+    history.push('/dashboard/list-books');
   };
 
 

@@ -25,8 +25,8 @@ const FooterPage = () => {
 
                                 <div>
                                     <br></br>
-                                    <a href="https://www.twitter.com/lafugaediciones" target="_blank"><img src="./tw_icon.png" width="36" height="40" alt="" /></a> &nbsp;&nbsp;<a href="https://www.facebook.com/lafugaediciones?fref=ts" target="_blank"><img src="./fb_icon.png" width="38" height="40" alt="" /></a>&nbsp;&nbsp;
-                                        <a href="https://www.instagram.com/lafugaediciones/" target="_blank"><img src="./inst_icon.png" width="38" height="40" alt="" /></a>
+                                    <a href="https://www.twitter.com/lafugaediciones" target="_blank"><img src="./img/tw_icon.png" width="36" height="40" alt="" /></a> &nbsp;&nbsp;<a href="https://www.facebook.com/lafugaediciones?fref=ts" target="_blank"><img src="./img/fb_icon.png" width="38" height="40" alt="" /></a>&nbsp;&nbsp;
+                                        <a href="https://www.instagram.com/lafugaediciones/" target="_blank"><img src="./img/inst_icon.png" width="38" height="40" alt="" /></a>
                                 </div>
 
                                

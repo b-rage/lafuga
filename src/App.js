@@ -21,6 +21,9 @@ import EnSerioPage from './components/website/EnSerioPage';
 import HumorisPage from './components/website/HumorisPage';
 import BookPage from './components/website/BookPage';
 import { useUser } from 'reactfire';
+import AddBook from './components/cms/AddBook';
+import AddAuthor from './components/cms/AddAuthor';
+import ListBooks from './components/cms/ListBooks';
 
 const App = () => {
 
@@ -31,7 +34,10 @@ const App = () => {
       <StorageProvider>
         <Route path="/login" render={() => <Login />} />
         {use && <>
-        <Route exact path="/dashboard/" render={() => <Dashboard />} />
+        <Route path="/dashboard/" render={() => <Dashboard />} />
+        <Route path="/dashboard/add-book" render={() => <AddBook />} />
+        <Route path="/dashboard/add-author" render={() => <AddAuthor />} />
+        <Route path="/dashboard/list-books" render={() => <ListBooks />} />
         <Route exact path="/dashboard/news/:id/add-news" render={(props) => <AddNews id={props.match.params.id} />} />
         <Route exact path="/dashboard/news/:id" render={(props) => <ListNews id={props.match.params.id} />} />
         <Route exact path="/dashboard/edit-book/:id" render={(props) => <EditBook id={props.match.params.id} />} />

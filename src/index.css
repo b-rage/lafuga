@@ -186,11 +186,11 @@ code {
 
 
 .buttons-container {
-  width: 300px;
+  width: 320px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-left: 10px;
+  margin-left: 3px;
 
 }
 
@@ -284,7 +284,7 @@ code {
   padding: 10px 3px;
   font-weight: bold;
   margin: 10px auto;
-  width: 145px;
+  width: 155px;
   border: none;
 }
 
@@ -462,6 +462,11 @@ a:hover {
 
 .content-first-escalones {
   background-color: #fbefc5;
+  padding-bottom: 30px;
+}
+
+.content-first-enserio {
+  background-color: #e2e7d5;
   padding-bottom: 30px;
 }
 
@@ -716,7 +721,7 @@ table td {
   color: #000;
   border-top: 1px solid transparent;
   font-size: 13px;
-  font-weight: bold;
+  font-weight: normal;
 }
 .td-title {
   padding: 6px;

@@ -22,6 +22,7 @@ const Dashboard = () => {
     },
     {
       path: `/dashboard`,
+      exact: true,
       sidebar: () => <div>lista libros</div>,
       main: () => <ListBooks />
     }
@@ -35,14 +36,14 @@ const Dashboard = () => {
           <Link to={`/dashboard/add-author`}><p className="button-class-list-nav">añadir autor</p></Link>
           <Link to={`/dashboard/list-books`}><p className="button-class-list-nav">lista libros</p></Link>
           </div>
-        {routes.map((route) => (
+       {/*  {routes.map((route) => (
           <Route
             key={route.path}
             path={route.path}
             exact={route.exact}
             component={route.main}
           />
-        ))}
+        ))} */}
       
     </>
   );
