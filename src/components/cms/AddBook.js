@@ -7,7 +7,7 @@ import FileUpload from './FileUpload';
 import Select from 'react-select';
 import MetaTags from 'react-meta-tags';
 
-const collections = [{ op: 'En Serio' }, { op: 'Escalones' }, { op: 'Humoris Causa' }]
+const collections = [{ op: 'En Serio' }, { op: 'Escalones' }, { op: 'Humoris Causa' }, { op: 'Pliegos Sueltos' }]
 
 
 const AddBook = () => {

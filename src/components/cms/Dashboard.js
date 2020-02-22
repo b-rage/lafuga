@@ -35,6 +35,7 @@ const Dashboard = () => {
           <Link to={`/dashboard/add-book`}><p className="button-class-list-nav">añadir libro</p></Link>
           <Link to={`/dashboard/add-author`}><p className="button-class-list-nav">añadir autor</p></Link>
           <Link to={`/dashboard/list-books`}><p className="button-class-list-nav">lista libros</p></Link>
+          <Link to={`/dashboard/add-catalogue`}><p className="button-class-list-nav">añadir catalogo</p></Link>
           </div>
        {/*  {routes.map((route) => (
           <Route

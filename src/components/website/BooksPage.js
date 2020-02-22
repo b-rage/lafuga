@@ -47,6 +47,14 @@ const BooksPage = () => {
                             <p className="escalones">Humoris Causa</p>
                             <p className="text_book_lib">Nueva colección de volúmenes que toman el humor como hilo conductor. Cada uno recoge una serie de cuentos de grandes autores del panorama actual; historias que van desde el humor más negro hasta el más ingenuo.</p>
                         </div>
+
+                     
+                        <div className="col-xs-12 col-sm-5 col-md-5 col-lg-3">
+                            <Link to={`libros/pliegos-sueltos`} style={{ textDecoration: 'none' }}><img id="enserio_logo" src="./pliegos_logo.jpg" width="210" height="123" alt="Pliegos Sueltos logo" /></Link>
+                            <p className="collecion">Colección</p>
+                            <p className="escalones">Pliegos Sueltos</p>
+                            {/* <p className="text_book_lib">Nueva colección de volúmenes que toman el humor como hilo conductor. Cada uno recoge una serie de cuentos de grandes autores del panorama actual; historias que van desde el humor más negro hasta el más ingenuo.</p> */}
+                        </div>
                     </div>
 
                 </div>

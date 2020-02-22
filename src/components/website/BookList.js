@@ -19,6 +19,7 @@ const BookList = () => {
 
     const [arrRowFirst, setArrRowFirst] = useState([])
     const [arrRowSecond, setArrRowSecond] = useState([])
+    const [catalogue, setCatalogue] = useState('')
 
     useEffect(() => {
 
@@ -50,6 +51,19 @@ const BookList = () => {
                 setArrRowFirst(_arrRowFirst)
                 setArrRowSecond(_arrRowSecond)
             })
+            .then(() => {
+                db.collection("catalogue")
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(doc => {
+                        setCatalogue(doc.data().catalogueFileUrl)
+                       
+                    });
+                })
+                .catch(function (error) {
+                    console.log("Error getting documents: ", error);
+                });
+            })
             .catch(function (error) {
                 console.log("Error getting documents: ", error);
             });
@@ -69,8 +83,10 @@ const BookList = () => {
                 })}
             </div>
             <br></br>
-            <div className="row middle">
+            <div className="middle">
+            <a href={catalogue}>
                 <button className="button-class-home">Descarga nuestro Catálogo</button>
+                </a>
             </div>
             <br></br>
             <div className="row">

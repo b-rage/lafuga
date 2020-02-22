@@ -62,6 +62,7 @@ const AddAuthor = () => {
           <p className="label-class">Descripción</p>
           <input className="input-class" placeholder="Descripción" type="text" onChange={handleInputChange} name="description" value={state.description || ''} required />
           <p className="label-class">Foto Autor</p>
+          <h5 className="align-text-center">la foto de autor tiene que ser cuadrada sino destroza el diseño, minimo 200x200px</h5>
           <FileUpload doImageUrl={doImageAuthorUrl} fileType="authors" required={false} />
           <br></br>
           <button className="button-class" type="submit">Guardar</button>
