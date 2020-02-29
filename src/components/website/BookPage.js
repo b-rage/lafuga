@@ -246,33 +246,7 @@ const BookPage = props => {
               </div>
             </div>
             <div className="col-xs-12 col-lg-5 text-book">
-              El maestro W., célebre director de orquesta, está a punto de
-              estrenar la temporada del Teatro lírico de Roma con una elaborada
-              puesta en escena del Otelo de Verdi. Desde los primeros ensayos,
-              su mentor y también productor de la ópera, advierte que una
-              extraña ansiedad aflige al director. Ese temor, visiblemente en
-              aumento, culminará en un inexplicable ataque de nervios que dará
-              al traste con el esperado estreno y que provocará la huida
-              precipitada del director. ¿Qué lleva al prestigioso músico a
-              jugarse la reputación ganada a pulso durante toda su impecable
-              carrera? Las pesquisas sobre la causa de la aflicción de W.
-              revelarán una historia que se remonta a los tiempos de la guerra
-              cuando, huyendo del norte de Italia ocupado por los nazis, el
-              director se refugió en un convento de un pueblo de montaña. Allí,
-              a salvo de la persecución, conoció a Romualdi, un hombrecillo
-              ignominioso, mediocre y ridículo que, por las oscuras razones que
-              W. acabará confesando a lo largo de una noche entera, hizo mella
-              en lo más profundo de su alma y de su talento. A partir de una
-              fotografía, Mario Soldati ofrece una brillante reflexión sobre el
-              intercambio de roles y los mecanismos que pueden llevar a un genio
-              a someterse a la mezquindad. La chaqueta verde, primera entrega de
-              la trilogía A cena col Commendatore, está considerada por la
-              crítica como la mejor novela corta de Mario Soldati, un ejercicio
-              literario a caballo entre la fábula moral, el thriller clásico y
-              la sátira que, a pesar de la crudeza de sus contenidos, mantiene
-              la sonrisa perenne en el rostro del lector. Esta edición viene
-              acompañada del artículo que dedicó el escritor Giorgio Bassani a
-              la primera edición de la trilogía.
+              {state.description}
               <br />
               <br />
               <br />
