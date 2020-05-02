@@ -3,9 +3,9 @@ import { firebaseApp } from "../../firebase";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import MetaTags from "react-meta-tags";
-import NewsItem from './NewsItem';
+import NewsItem from "./NewsItem";
 
-const BookPage = props => {
+const BookPage = (props) => {
   const [state, updateState] = useState({
     bookId: "",
     author: "",
@@ -29,55 +29,58 @@ const BookPage = props => {
     imageUrl: "",
     startReedUrl: "",
     pressNoteUrl: "",
-    imageAuthorUrl: ""
+    imageAuthorUrl: "",
   });
 
   const [listNews, setListNews] = useState([]);
 
   useEffect(() => {
-    const db = firebaseApp.firestore();
-    db.collection(`books`)
-      .doc(`${props.id}`)
-      .get()
-      .then(function (doc) {
+    fetch(
+      `https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books/${props.id}`,
+      {
+        method: "GET",
+      }
+    )
+      .then((res) => res.json())
+      .then((doc) => {
         updateState({
-          author: doc.data().author || "",
-          authorId: doc.data().authorId || "",
-          title: doc.data().title || "",
-          subtitle: doc.data().subtitle || "",
-          introduction: doc.data().introduction || "",
-          translator: doc.data().translator || "",
-          illustrations: doc.data().illustrations || "",
-          editedBy: doc.data().editedBy || "",
-          prologue: doc.data().prologue || "",
-          format: doc.data().format || "",
-          binding: doc.data().binding || "",
-          pages: doc.data().pages || "",
-          isbn: doc.data().isbn || "",
-          pvp: doc.data().pvp || "",
-          description: doc.data().description || "",
-          collection: doc.data().collection || "",
-          pubDate: doc.data().pubDate || "",
-          storeUrl: doc.data().storeUrl || "",
-          imageUrl: doc.data().imageUrl || "",
-          startReedUrl: doc.data().startReedUrl || "",
-          pressNoteUrl: doc.data().pressNoteUrl || "",
-          imageAuthorUrl: doc.data().imageAuthorUrl || ""
+          author: doc.author || "",
+          authorId: doc.authorId || "",
+          title: doc.title || "",
+          subtitle: doc.subtitle || "",
+          introduction: doc.introduction || "",
+          translator: doc.translator || "",
+          illustrations: doc.illustrations || "",
+          editedBy: doc.editedBy || "",
+          prologue: doc.prologue || "",
+          format: doc.format || "",
+          binding: doc.binding || "",
+          pages: doc.pages || "",
+          isbn: doc.isbn || "",
+          pvp: doc.pvp || "",
+          description: doc.description || "",
+          collection: doc.collection || "",
+          pubDate: doc.pubDate || "",
+          storeUrl: doc.storeUrl || "",
+          imageUrl: doc.imageUrl || "",
+          startReedUrl: doc.startReedUrl || "",
+          pressNoteUrl: doc.pressNoteUrl || "",
+          imageAuthorUrl: doc.imageAuthorUrl || "",
         });
       })
       .then(() => {
-        const docRef = db.collection(`books/${props.id}/news`);
-
-        docRef
-          .get()
-          .then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-              listNews.push(doc.data());
+        fetch(
+          `https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books/${props.id}/news`,
+          {
+            method: "GET",
+          }
+        )
+          .then((res) => res.json())
+          .then((response) => {
+            response.forEach((doc) => {
+              listNews.push(doc);
               setListNews([...listNews]);
             });
-          })
-          .catch(function (error) {
-            console.log("Error getting documents: ", error);
           });
       })
       .catch(function (error) {
@@ -114,18 +117,29 @@ const BookPage = props => {
                 alt={`portada ${state.title}`}
               />
               <br />
-              {state.storeUrl && <a href={state.storeUrl}>
-                <br></br>
-                <button className="store-button">
-                  compra en nuestra tienda
-                </button>
-              </a>}
+              {state.storeUrl && (
+                <a href={state.storeUrl}>
+                  <br></br>
+                  <button className="store-button">
+                    compra en nuestra tienda
+                  </button>
+                </a>
+              )}
             </div>
             <div className="col-xs-12 col-sm-12 col-lg-4 tabla">
               <table>
                 <tbody>
                   <tr>
-                    <td>AUTOR:</td><td><Link to={`/autor/${state.authorId}`} key={props.id} className="book-title-author">{state.author}</Link></td>
+                    <td>AUTOR:</td>
+                    <td>
+                      <Link
+                        to={`/autor/${state.authorId}`}
+                        key={props.id}
+                        className="book-title-author"
+                      >
+                        {state.author}
+                      </Link>
+                    </td>
                   </tr>
                   <tr>
                     <td>TÍTULO:</td>
@@ -258,19 +272,29 @@ const BookPage = props => {
 
       {/* <NewsItem newsDate={item.newsDate} */}
 
-      {(listNews.length > 0) && <div className="container">
-        <div className="row">
-          <div className="col-xs-12 colo-lg-12">
-            <br />
-            <br />
-            <h3>Noticias de Prensa</h3>
-            {listNews.map(item => {
-              return <NewsItem key={item.newsTitle} newsTitle={item.newsTitle} newsUrl={item.newsUrl} newsDate={item.newsDate} newsFileUrl={item.newsFileUrl} />
-            })}
-            <br />
+      {listNews.length > 0 && (
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12 colo-lg-12">
+              <br />
+              <br />
+              <h3>Noticias de Prensa</h3>
+              {listNews.map((item) => {
+                return (
+                  <NewsItem
+                    key={item.newsTitle}
+                    newsTitle={item.newsTitle}
+                    newsUrl={item.newsUrl}
+                    newsDate={item.newsDate}
+                    newsFileUrl={item.newsFileUrl}
+                  />
+                );
+              })}
+              <br />
+            </div>
           </div>
         </div>
-      </div>}
+      )}
     </>
   );
 };

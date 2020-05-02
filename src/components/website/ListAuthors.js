@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { firebaseApp } from "../../firebase";
 import "@trendmicro/react-datepicker/dist/react-datepicker.css";
 import AuthorCardItem from "./AuthorCardItem";
 import MetaTags from 'react-meta-tags';
@@ -19,22 +18,21 @@ const ListAuthors = () => {
   });
 
   useEffect(() => {
-    const db = firebaseApp.firestore();
-    db.collection("authors")
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(doc => {
-          state.listAuthors.push({
-            author: doc.data().author,
-            imageAuthorUrl: doc.data().imageAuthorUrl,
-            description: doc.data().description,
-            dateAuthor: doc.data().dateAuthor,
-            idAuthor: doc.id
-          });
+
+      fetch(
+        `https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/authors`,
+        {
+          method: "GET",
+        }
+      )
+    .then(res => res.json())
+    .then(response => {
+        response.forEach(doc => {
+          state.listAuthors.push({ author: doc.author, idAuthor: doc.id, imageAuthorUrl: doc.imageAuthorUrl, description: doc.description, dateAuthor: doc.dateAuthor })
           const result = state.listAuthors.filter(word => word.author !== 'Autores Varios');
           updateState({ ...state, listAuthors: result });
         });
-      })
+    })
       .catch(function (error) {
         console.log("Error getting documents: ", error);
       });

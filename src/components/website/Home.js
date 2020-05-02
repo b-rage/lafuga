@@ -5,30 +5,6 @@ import BookList from './BookList'
 
 const Home = () => {
 
-  /*  const [listAuthors, setListAuthors] = useState([])
-
- useEffect(() => {
-    const db = firebaseApp.firestore();
-    db.collection("authors")
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(doc => {
-          listAuthors.push(doc.data());
-          setListAuthors([...listAuthors]);
-        });
-      })
-      .then(() => {
-        const _listAuthors = JSON.stringify(listAuthors)
-        props.context.setListAuthors(listAuthors)
-        window.sessionStorage.setItem('listAuthors', _listAuthors);
-      })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
-      });
-  }, []); */
-
-
-
   return (
     <>
       <MetaTags>

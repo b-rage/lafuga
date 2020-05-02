@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { firebaseApp } from '../../firebase';
 import BookCardItem from './BookCardItem';
 import moment from "moment";
 
@@ -19,14 +18,18 @@ const BookListEnSerio = () => {
       });
    
       useEffect(() => {
-    
-        const db = firebaseApp.firestore();
-        db.collection("books")
-        .get()
-        .then(function(querySnapshot) {
-            querySnapshot.forEach(doc => {
-              state.listBooks.push({author: doc.data().author, collection: doc.data().collection, authorId: doc.data().authorId, pubDate: doc.data().pubDate, imageUrl: doc.data().imageUrl, title: doc.data().title, pvp: doc.data().pvp, idBook: doc.id})
-              updateState({...state, ...state.listBooks})
+
+        fetch(
+            `https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books`,
+            {
+              method: "GET",
+            }
+          )
+        .then(res => res.json())
+        .then(response => {
+            response.forEach(doc => {
+                state.listBooks.push({ author: doc.author, collection: doc.collection, authorId: doc.authorId, pubDate: doc.pubDate, imageUrl: doc.imageUrl, title: doc.title, pvp: doc.pvp, idBook: doc.id })
+                updateState({ ...state, ...state.listBooks })
             });
         })
         .then(() => {
@@ -40,7 +43,7 @@ const BookListEnSerio = () => {
             });
             state.listBooks.reverse().forEach(item => {
                 item.pubDate = moment(`${item.pubDate}`, 'YYYY/MM/DD').format('DD/MM/YYYY');
-            })            
+            })           
         })
         .then(() => {
             const result = state.listBooks.filter(word => word.collection === 'En Serio');
