@@ -19,12 +19,12 @@ const ListAuthors = () => {
 
   useEffect(() => {
 
-      fetch(
-        `https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/authors`,
-        {
-          method: "GET",
-        }
-      )
+    fetch(
+      `https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/authors`,
+      {
+        method: "GET",
+      }
+    )
     .then(res => res.json())
     .then(response => {
         response.forEach(doc => {
@@ -33,9 +33,9 @@ const ListAuthors = () => {
           updateState({ ...state, listAuthors: result });
         });
     })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
-      });
+    .catch(function (error) {
+      console.log("Error getting documents: ", error);
+    });
   }, []);
 
 

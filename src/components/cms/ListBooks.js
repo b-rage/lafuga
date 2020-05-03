@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { firebaseApp } from '../../firebase';
 import BookListItem from './BookListItem';
 import MetaTags from 'react-meta-tags';
 
@@ -16,19 +15,23 @@ const ListBooks = () => {
 
     useEffect(() => {
 
-        const db = firebaseApp.firestore();
-        db.collection("books")
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(doc => {
-                    state.listBooks.push({ author: doc.data().author, imageUrl: doc.data().imageUrl, title: doc.data().title, idBook: doc.id })
-                    updateState({ ...state, ...state.listBooks })
-                });
-            })
-            .catch(function (error) {
-                console.log("Error getting documents: ", error);
+        fetch(
+            `https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books`,
+            {
+                method: "GET",
+            }
+            )
+        .then(res => res.json())
+        .then(response => {
+            response.forEach(doc => {
+                state.listBooks.push({ author: doc.author, imageUrl: doc.imageUrl, title: doc.title, idBook: doc.id })
+                updateState({ ...state, ...state.listBooks })
             });
-        //updateState(data.docs.map(doc => ({ ...doc.data(), id: doc.id }))); 
+        })
+        .catch(function (error) {
+            console.log("Error getting documents: ", error);
+        });
+
 
     }, []);
 

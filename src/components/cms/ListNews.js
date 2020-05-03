@@ -28,7 +28,7 @@ const ListNews = props => {
   }, []);
 
   const getNews = () => {
-    const docRef = db.collection(`books/${props.id}/news`);
+    /* const docRef = db.collection(`books/${props.id}/news`);
 
     docRef
       .get()
@@ -43,6 +43,25 @@ const ListNews = props => {
           });
         });
         setListBookNews(state.listNews);
+      }) */
+      fetch(
+        `https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books/${props.id}/news`,
+        {
+          method: "GET",
+        }
+      )
+      .then(res => res.json())
+      .then(response => {
+          response.forEach(doc => {
+              state.listNews.push({ 
+                newsTitle: doc.newsTitle,
+                newsDate: doc.newsDate,
+                newsUrl: doc.newsUrl,
+                newsFileUrl: doc.newsFileUrl,
+                idNews: doc.id
+               })
+          });
+          setListBookNews(state.listNews);
       })
       .catch(function(error) {
         console.log("Error getting documents: ", error);
@@ -52,7 +71,7 @@ const ListNews = props => {
   const handleDeleteNews = idNews => {
     let res = window.confirm("borrar definitivamente?");
     if (res) {
-      const docRef = db.collection(`books/${props.id}/news`);
+      /* const docRef = db.collection(`books/${props.id}/news`);
       docRef
         .doc(`${idNews}`)
         .delete()
@@ -62,6 +81,17 @@ const ListNews = props => {
         })
         .catch(function(error) {
           console.error("Error removing document: ", error);
+        }); */
+        fetch(`https://us-central1-lafuga-8ef6d.cloudfunctions.net/api/books/${props.id}/news/${idNews}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+        })
+        .then(function() {
+          setMsg(true);
+          history.push('/dashboard');
+        })
+        .catch(error => {
+          console.error("Error deleting document: ", error);
         });
     }
   };

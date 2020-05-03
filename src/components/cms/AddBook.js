@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { firebaseApp } from '../../firebase';
 import moment from 'moment';
 import DatePicker from '@trendmicro/react-datepicker';
 import '@trendmicro/react-datepicker/dist/react-datepicker.css';
@@ -40,27 +39,24 @@ const AddBook = () => {
     msg: false
   });
 
-  const [news, updateNews] = useState({
-    newsTitle: '',
-    newsDate: moment(new Date()).format('YYYY-MM-DD'),
-    newsUrl: '',
-    newsFileUrl: ''
-  });
-
-  const [addNews, updateAddNews] = useState(false);
   let authors = [];
 
-  const db = firebaseApp.firestore();
+  const [bookId, setBookId] = useState('')
 
 
   useEffect(() => {
 
-    db.collection("authors")
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(doc => {
-          authors.push({ author: doc.data().author, imageAuthorUrl: doc.data().imageAuthorUrl, description: doc.data().description, idAuthor: doc.id })
-        });
+      fetch(
+        `https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/authors`,
+        {
+          method: "GET",
+        }
+      )
+      .then(res => res.json())
+      .then(response => {
+          response.forEach(doc => {
+            authors.push({ author: doc.author, idAuthor: doc.id, imageAuthorUrl: doc.imageAuthorUrl, description: doc.description, dateAuthor: doc.dateAuthor })
+          });
       })
       .catch(function (error) {
         console.log("Error getting documents: ", error);
@@ -92,58 +88,55 @@ const AddBook = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    // Add a new document in collection "books"
-    db.collection("books").add({
-      author: state.author,
-      authorId: state.authorId,
-      imageAuthorUrl: state.imageAuthorUrl,
-      title: state.title,
-      subtitle: state.subtitle,
-      introduction: state.introduction,
-      translator: state.translator,
-      illustrations: state.illustrations,
-      editedBy: state.editedBy,
-      prologue: state.prologue,
-      format: state.format,
-      binding: state.binding,
-      pages: state.pages,
-      isbn: state.isbn,
-      pvp: state.pvp,
-      description: state.description,
-      collection: state.collection,
-      pubDate: state.pubDate,
-      imageUrl: state.imageUrl,
-      storeUrl: state.storeUrl,
-      startReedUrl: state.startReedUrl,
-      pressNoteUrl: state.pressNoteUrl
+    fetch('https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        author: state.author,
+        authorId: state.authorId,
+        imageAuthorUrl: state.imageAuthorUrl,
+        title: state.title,
+        subtitle: state.subtitle,
+        introduction: state.introduction,
+        translator: state.translator,
+        illustrations: state.illustrations,
+        editedBy: state.editedBy,
+        prologue: state.prologue,
+        format: state.format,
+        binding: state.binding,
+        pages: state.pages,
+        isbn: state.isbn,
+        pvp: state.pvp,
+        description: state.description,
+        collection: state.collection,
+        pubDate: state.pubDate,
+        imageUrl: state.imageUrl,
+        storeUrl: state.storeUrl,
+        startReedUrl: state.startReedUrl,
+        pressNoteUrl: state.pressNoteUrl
+      }),
     })
-      .then((docRef) => {
-        db.collection(`authors`).doc(`${state.authorId}`).collection('authorBooks').add({
+    .then(res => res.json())
+    .then(response => {
+      return response.docId
+    })
+    .then((res) => {
+      fetch(`https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/authors/${state.authorId}/authorBooks`, {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           bookTitle: state.title,
-          bookId: docRef.id
-        })
+          bookId: res
+        }),
+      })
+      .then(() => {
         updateState({ ...state, msg: true })
       })
-      .catch(error => {
-        console.error("Error writing document: ", error);
-      });
+    })
+    .catch(error => {
+      console.error("Error writing document: ", error);
+    });
   }
-
-  /* const handleNewsInputChange = e => {
-    updateNews({ ...news, [e.target.name]: e.target.value })
-  }
-
-  const onAddNewsChange = () => {
-    updateAddNews(!addNews)
-  }
-
-  const handleDateNewsChange = e => {
-    updateNews({ ...news, newsDate: moment(new Date(e)).format("DD/MM/YYYY") })
-  };
-
-  const doNewsNoteUrl = (url) => {
-    updateNews({ ...news, newsFileUrl: url })
-  } */
 
   const handleAuthorChange = value => {
     updateState({ ...state, author: value.author, authorId: value.idAuthor, imageAuthorUrl: value.imageAuthorUrl })
@@ -242,27 +235,7 @@ const AddBook = () => {
           <FileUpload doImageUrl={doStartReedUrl} fileType="pdfs" required={false} />
           <p className="label-class">Nota de prensa</p>
           <FileUpload doImageUrl={doPressNoteUrl} fileType="pdfs" required={false} />
-          <br></br><br></br>
-          {/*  <button className="button-class" type="button" onClick={onAddNewsChange}>Añadir Noticia de prensa</button>
-          {addNews &&
-            <>
-              <p className="label-class">Fecha noticia</p>
-              <p className="p-class">{news.newsDate || ''}</p>
-              <DatePicker
-                defaultDate={news.newsDate}
-                onSelect={handleDateNewsChange}
-              />
-              <p className="label-class">Titulo Noticia</p>
-              <input className="input-class" placeholder="Titulo Noticia" type="text" onChange={handleNewsInputChange} name="newsTitle" value={news.newsTitle || ''} required />
-              <p className="label-class">Link Noticia</p>
-              <input className="input-class" placeholder="Link Noticia" type="text" onChange={handleNewsInputChange} name="newsUrl" value={news.newsUrl || ''} />
-              <p className="label-class">Importar fichero noticia</p>
-              <FileUpload doImageUrl={doNewsNoteUrl} fileType="pdfs" required={false} />
-            </>} */}
-          <br></br>
-          {/* <p className="label-class">Titulo Noticia</p>
-          <input className="input-class" placeholder="Titulo Noticia" type="text" onChange={handleInputChange} name="news.newsTitle" value={news.newsTitle || ''} /> */}
-
+          <br></br><br></br> 
           <button className="button-class" type="submit">Guardar</button>
           {state.msg && <h2>Libro añadido con exito</h2>}
         </div>

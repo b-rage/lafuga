@@ -22,12 +22,15 @@ const AddNews = ({ props, id }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    db.collection(`books/${id}/news`)
-      .add({
-        newsTitle: news.newsTitle,
-        newsDate: news.newsDate,
-        newsUrl: news.newsUrl,
-        newsFileUrl: news.newsFileUrl
+      fetch(`https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books/${id}/news`, {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          newsTitle: news.newsTitle,
+          newsDate: news.newsDate,
+          newsUrl: news.newsUrl,
+          newsFileUrl: news.newsFileUrl
+        }),
       })
       .then(() => {
         console.log("Document successfully written!");

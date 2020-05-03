@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { firebaseApp } from '../../firebase';
 import '@trendmicro/react-datepicker/dist/react-datepicker.css';
 import FileUpload from './FileUpload';
 import MetaTags from 'react-meta-tags';
@@ -15,9 +14,6 @@ const AddAuthor = () => {
     msg: false
   });
 
-  const db = firebaseApp.firestore();
-
-
   const handleInputChange = e => {
     updateState({ ...state, [e.target.name]: e.target.value, msg: false })
   }
@@ -29,19 +25,22 @@ const AddAuthor = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    // Add a new document in collection "books"
-    db.collection("authors").add({
-      author: state.author,
-      description: state.description,
-      imageAuthorUrl: state.imageAuthorUrl,
-      dateAuthor: state.dateAuthor
+    fetch('https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/authors', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        author: state.author,
+        description: state.description,
+        imageAuthorUrl: state.imageAuthorUrl,
+        dateAuthor: state.dateAuthor
+      }),
     })
-      .then(() => {
-        updateState({ ...state, msg: true })
-      })
-      .catch(error => {
-        console.error("Error writing document: ", error);
-      });
+    .then(() => {
+      updateState({ ...state, msg: true })
+    })
+    .catch(error => {
+      console.error("Error writing document: ", error);
+    });
   }
 
   return (
