@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import DatePicker from "@trendmicro/react-datepicker";
 import "@trendmicro/react-datepicker/dist/react-datepicker.css";
@@ -7,7 +7,7 @@ import { useHistory } from 'react-router';
 
 
 
-const AddNews = ({ props, id }) => {
+const EditNews = ({ idNews, id }) => {
 
   const history = useHistory();
 
@@ -18,11 +18,35 @@ const AddNews = ({ props, id }) => {
     newsFileUrl: "",
   });
 
+
+  useEffect(() => {
+    fetch(
+        `https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books/${id}/news/${idNews}`,
+      {
+        method: "GET",
+      }
+    )
+      .then((res) => res.json())
+      .then((doc) => {
+        updateNews({
+          newsTitle: doc.newsTitle || "",
+          newsDate: doc.newsDate || "",
+          newsUrl: doc.newsUrl || "",
+          newsFileUrl: doc.newsFileUrl || ""
+        });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+  }, []); 
+  
+
   const handleSubmit = e => {
     e.preventDefault();
 
-      fetch(`https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books/${id}/news`, {
-        method: 'post',
+
+      fetch(`https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books/${id}/news/${idNews}`, {
+        method: 'put',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           newsTitle: news.newsTitle,
@@ -62,7 +86,7 @@ const AddNews = ({ props, id }) => {
       <form className="form-class" onSubmit={handleSubmit}>
         <div className="div-class">
           <div>
-            <h1 className="align-text-center">Añadir Nueva Noticia de prensa</h1>
+            <h1 className="align-text-center">Editar Noticia de prensa</h1>
             <br></br>
             <button className="arrow" onClick={goBack}>
               &#60;&#60;&#60; ATRAS
@@ -109,4 +133,4 @@ const AddNews = ({ props, id }) => {
   );
 };
 
-export default AddNews;
+export default EditNews;

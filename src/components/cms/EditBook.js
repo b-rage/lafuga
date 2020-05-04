@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { firebaseApp } from '../../firebase';
 import moment from 'moment';
 import DatePicker from '@trendmicro/react-datepicker';
 import '@trendmicro/react-datepicker/dist/react-datepicker.css';
@@ -43,50 +42,41 @@ const EditBook = (props) => {
     msg: false
   });
 
-  const [news, updateNews] = useState({
-    newsTitle: '',
-    newsDate: moment(new Date()).format('YYYY-MM-DD'),
-    newsUrl: '',
-    newsFileUrl: ''
-  });
-
-  const [addNews, updateAddNews] = useState(false);
-  let authors = [];
-
-  const db = firebaseApp.firestore();
 
 
-  useEffect(() => {
-    const db = firebaseApp.firestore();
-    db.collection(`books`)
-      .doc(`${props.id}`)
-      .get()
-      .then(function (doc) {
+ useEffect(() => {
+    fetch(
+      `https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books/${props.id}`,
+      {
+        method: "GET",
+      }
+    )
+      .then((res) => res.json())
+      .then((doc) => {
         updateState({
-          author: doc.data().author,
-          authorId: doc.data().authorId,
-          imageAuthorUrl: doc.data().imageAuthorUrl,
-          title: doc.data().title,
-          subtitle: doc.data().subtitle,
-          introduction: doc.data().introduction,
-          translator: doc.data().translator,
-          illustrations: doc.data().illustrations,
-          editedBy: doc.data().editedBy,
-          prologue: doc.data().prologue,
-          format: doc.data().format,
-          binding: doc.data().binding,
-          pages: doc.data().pages,
-          isbn: doc.data().isbn,
-          pvp: doc.data().pvp,
-          description: doc.data().description,
-          collection: doc.data().collection,
-          pubDate: doc.data().pubDate,
-          imageUrl: doc.data().imageUrl,
-          storeUrl: doc.data().storeUrl,
-          startReedUrl: doc.data().startReedUrl,
-          pressNoteUrl: doc.data().pressNoteUrl
+          author: doc.author || "",
+          authorId: doc.authorId || "",
+          title: doc.title || "",
+          subtitle: doc.subtitle || "",
+          introduction: doc.introduction || "",
+          translator: doc.translator || "",
+          illustrations: doc.illustrations || "",
+          editedBy: doc.editedBy || "",
+          prologue: doc.prologue || "",
+          format: doc.format || "",
+          binding: doc.binding || "",
+          pages: doc.pages || "",
+          isbn: doc.isbn || "",
+          pvp: doc.pvp || "",
+          description: doc.description || "",
+          collection: doc.collection || "",
+          pubDate: doc.pubDate || "",
+          storeUrl: doc.storeUrl || "",
+          imageUrl: doc.imageUrl || "",
+          startReedUrl: doc.startReedUrl || "",
+          pressNoteUrl: doc.pressNoteUrl || "",
+          imageAuthorUrl: doc.imageAuthorUrl || "",
         });
-        console.log('state', state)
       })
       .catch(function (error) {
         console.log("Error getting documents2: ", error);
@@ -117,33 +107,37 @@ const EditBook = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('stateSubmit', state)
+
 
     // Edit a document in collection "books"
-    db.collection("books").doc(`${props.id}`).set({
-      author: state.author || '',
-      authorId: state.authorId || '',
-      imageAuthorUrl: state.imageAuthorUrl || '',
-      title: state.title || '',
-      subtitle: state.subtitle || '',
-      introduction: state.introduction || '',
-      translator: state.translator || '',
-      illustrations: state.illustrations || '',
-      editedBy: state.editedBy || '',
-      prologue: state.prologue || '',
-      format: state.format || '',
-      binding: state.binding || '',
-      pages: state.pages || '',
-      isbn: state.isbn || '',
-      pvp: state.pvp || '',
-      description: state.description || '',
-      collection: state.collection || '',
-      pubDate: state.pubDate || '',
-      imageUrl: state.imageUrl || '',
-      storeUrl: state.storeUrl || '',
-      startReedUrl: state.startReedUrl || '',
-      pressNoteUrl: state.pressNoteUrl || ''
-    })
+      fetch(`https://us-central1-lafuga-8ef6d.cloudfunctions.net/app/api/books/${props.id}`, {
+        method: 'put',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          author: state.author,
+          authorId: state.authorId,
+          imageAuthorUrl: state.imageAuthorUrl,
+          title: state.title,
+          subtitle: state.subtitle,
+          introduction: state.introduction,
+          translator: state.translator,
+          illustrations: state.illustrations,
+          editedBy: state.editedBy,
+          prologue: state.prologue,
+          format: state.format,
+          binding: state.binding,
+          pages: state.pages,
+          isbn: state.isbn,
+          pvp: state.pvp,
+          description: state.description,
+          collection: state.collection,
+          pubDate: state.pubDate,
+          imageUrl: state.imageUrl,
+          storeUrl: state.storeUrl,
+          startReedUrl: state.startReedUrl,
+          pressNoteUrl: state.pressNoteUrl
+        }),
+      })
       .then(() => {
         updateState({ msg: true })
         console.log("Document successfully written!");
@@ -153,9 +147,9 @@ const EditBook = (props) => {
       });
   }
 
-  const handleAuthorChange = value => {
+/*   const handleAuthorChange = value => {
     updateState({ ...state, author: value.author, authorId: value.idAuthor, imageAuthorUrl: value.imageAuthorUrl })
-  }
+  } */
 
   const handleCollectionChange = value => {
     updateState({ ...state, collection: value.op })
@@ -179,23 +173,6 @@ const EditBook = (props) => {
               &#60;&#60;&#60; ATRAS
             </button>
             <h1 className="align-text-center">Editar libro</h1>
-          </div>
-          <p className="label-class">Autor</p>
-          <div className="ml-35">
-            <Select
-              options={authors}
-              getOptionLabel={(option) => option.author}
-              placeholder={'Elegir Autor'}
-              style={
-                {
-                  height: '40px',
-                  width: '80%',
-                  maxWidth: '400px',
-                  marginLeft: '35px'
-                }
-              }
-              onChange={handleAuthorChange}
-            />
           </div>
           <br></br>
           <p className="label-class">Titulo</p>

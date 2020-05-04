@@ -71,17 +71,6 @@ const ListNews = props => {
   const handleDeleteNews = idNews => {
     let res = window.confirm("borrar definitivamente?");
     if (res) {
-      /* const docRef = db.collection(`books/${props.id}/news`);
-      docRef
-        .doc(`${idNews}`)
-        .delete()
-        .then(function() {
-          setMsg(true);
-          history.push('/dashboard');
-        })
-        .catch(function(error) {
-          console.error("Error removing document: ", error);
-        }); */
         fetch(`https://us-central1-lafuga-8ef6d.cloudfunctions.net/api/books/${props.id}/news/${idNews}`, {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' }
@@ -127,7 +116,6 @@ const ListNews = props => {
       {msg && <h2>Noticia borrada</h2>}
       <br></br>
       {listBookNews.map(item => {
-        console.log("item", item);
         return (
           <NewsListItem
             key={item.idNews}
@@ -136,7 +124,7 @@ const ListNews = props => {
             newsDate={item.newsDate}
             idNews={item.idNews}
             newsFileUrl={item.newsFileUrl}
-            onDeleteNews={handleDeleteNews}
+            idBook={props.id}
           />
         );
       })}

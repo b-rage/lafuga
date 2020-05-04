@@ -17,6 +17,7 @@ import BooksPage from './components/website/BooksPage';
 import EscalonesPage from './components/website/EscalonesPage';
 import DistribucionPage from './components/website/DistribucionPage'
 import EditBook from './components/cms/EditBook';
+import EditNews from './components/cms/EditNews';
 import EnSerioPage from './components/website/EnSerioPage';
 import HumorisPage from './components/website/HumorisPage';
 import PliegosPage from './components/website/PliegosPage';
@@ -44,6 +45,7 @@ const App = () => {
         <Route exact path="/dashboard/news/:id/add-news" render={(props) => <AddNews id={props.match.params.id} />} />
         <Route exact path="/dashboard/news/:id" render={(props) => <ListNews id={props.match.params.id} />} />
         <Route exact path="/dashboard/edit-book/:id" render={(props) => <EditBook id={props.match.params.id} />} />
+        <Route exact path="/dashboard/book/:id/edit-news/:idNews" render={(props) => <EditNews id={props.match.params.id} idNews={props.match.params.idNews}/>} />
         </>}
         <Route exact path="/" render={() => <Home />} />
         <Route exact path="/autores" render={() => <ListAuthors />} />
