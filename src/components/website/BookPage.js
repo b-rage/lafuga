@@ -27,6 +27,7 @@ const BookPage = (props) => {
     pubDate: "",
     storeUrl: "",
     imageUrl: "",
+    imageSponsorUrl: "",
     startReedUrl: "",
     pressNoteUrl: "",
     imageAuthorUrl: "",
@@ -63,6 +64,7 @@ const BookPage = (props) => {
           pubDate: doc.pubDate || "",
           storeUrl: doc.storeUrl || "",
           imageUrl: doc.imageUrl || "",
+          imageSponsorUrl: doc.imageSponsorUrl || "",
           startReedUrl: doc.startReedUrl || "",
           pressNoteUrl: doc.pressNoteUrl || "",
           imageAuthorUrl: doc.imageAuthorUrl || "",
@@ -261,6 +263,16 @@ const BookPage = (props) => {
             </div>
             <div className="col-xs-12 col-lg-5 text-book">
               {state.description}
+              <br />
+              <br />
+              {state.imageSponsorUrl && (
+                <img
+                  src={state.imageSponsorUrl}
+                  width="300"
+                  height="150"
+                  alt={`image sponsor`}
+                />
+              )}
               <br />
               <br />
               <br />
