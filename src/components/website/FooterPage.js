@@ -11,9 +11,10 @@ const FooterPage = () => {
                             <div className="col-md-6">
                                 <address>
                                     <strong>La Fuga Ediciones</strong><br></br>
-                                    c/ Nou de Sant Francesc 42, ático 2<br></br>
-                                    08002 Barcelona<br></br>
-                                    Tel: (+34) 933 282 052<br></br>
+                                    C/O Llibreria Calders <br></br>
+                                    Passatge Pere Calders, 9<br></br>
+                                    08015 Barcelona<br></br>
+                                    Tel: (+34) 934 42 78 31<br></br>
                                     <a href="mailto:#">info@lafugaediciones.es</a>
                                 </address>
                             </div>

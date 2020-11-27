@@ -64,6 +64,7 @@ const BookPage = (props) => {
           pubDate: doc.pubDate || "",
           storeUrl: doc.storeUrl || "",
           imageUrl: doc.imageUrl || "",
+          titleSponsor: doc.titleSponsor || "",
           imageSponsorUrl: doc.imageSponsorUrl || "",
           startReedUrl: doc.startReedUrl || "",
           pressNoteUrl: doc.pressNoteUrl || "",
@@ -265,11 +266,14 @@ const BookPage = (props) => {
               {state.description}
               <br />
               <br />
+              {state.titleSponsor}
+              <br />
+              <br />
               {state.imageSponsorUrl && (
                 <img
                   src={state.imageSponsorUrl}
                   width="300"
-                  height="150"
+                  height="42"
                   alt={`image sponsor`}
                 />
               )}
