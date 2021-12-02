@@ -73,11 +73,11 @@ const NavBarComponent = props => {
                             <Link to={`/contacto`}><p className="nav-link waves-effect waves-light" >CONTACTO</p></Link>
 
                         </NavItem >
-                        <NavItem className='nav-link' >
+{/*                         <NavItem className='nav-link' >
                         <a className='nav-link' href="http://lafugaediciones.es/tienda/es/"  >
                         <p className="nav-link waves-effect waves-light mtop-8" >TIENDA</p>
                             </a>
-                        </NavItem >
+                        </NavItem > */}
                     </NavbarNav>
 
                 </Collapse>

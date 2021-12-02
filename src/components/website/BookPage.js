@@ -120,14 +120,14 @@ const BookPage = (props) => {
                 alt={`portada ${state.title}`}
               />
               <br />
-              {state.storeUrl && (
+{/*               {state.storeUrl && (
                 <a href={state.storeUrl}>
                   <br></br>
                   <button className="store-button">
                     compra en nuestra tienda
                   </button>
                 </a>
-              )}
+              )} */}
             </div>
             <div className="col-xs-12 col-sm-12 col-lg-4 tabla">
               <table>
