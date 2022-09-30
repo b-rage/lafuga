@@ -36,6 +36,7 @@ const AddBook = () => {
     startReedUrl: '',
     pressNoteUrl: '',
     imageAuthorUrl: '',
+    imageSponsorUrl: '',
     msg: false
   });
 
@@ -77,6 +78,10 @@ const AddBook = () => {
     updateState({ ...state, imageUrl: url })
   }
 
+  const doImageSponsorUrl = (url) => {
+    updateState({ ...state, imageSponsorUrl: url })
+  }
+
   const doStartReedUrl = (url) => {
     updateState({ ...state, startReedUrl: url })
   }
@@ -113,7 +118,8 @@ const AddBook = () => {
         imageUrl: state.imageUrl,
         storeUrl: state.storeUrl,
         startReedUrl: state.startReedUrl,
-        pressNoteUrl: state.pressNoteUrl
+        pressNoteUrl: state.pressNoteUrl,
+        imageSponsorUrl: state.imageSponsorUrl
       }),
     })
     .then(res => res.json())
@@ -224,6 +230,8 @@ const AddBook = () => {
           <input className="input-class" placeholder="Link a tienda" type="text" onChange={handleInputChange} name="storeUrl" value={state.storeUrl || ''} required />
           <p className="label-class">Portada</p>
           <FileUpload doImageUrl={doImageUrl} fileType="books" required={true} />
+          <p className="label-class">Logo añadido</p>
+          <FileUpload doImageUrl={doImageSponsorUrl} fileType="books" required={false} />
           <br></br>
           <p className="label-class">Fecha publicacion</p>
           <p className="p-class">{state.pubDate || ''}</p>
