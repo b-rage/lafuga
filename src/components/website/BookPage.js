@@ -273,7 +273,6 @@ const BookPage = (props) => {
                 <img
                   src={state.imageSponsorUrl}
                   width="300"
-                  height="42"
                   alt={`image sponsor`}
                 />
               )}
