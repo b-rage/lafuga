@@ -11,17 +11,15 @@ const FooterPage = () => {
                             <div className="col-md-6">
                                 <address>
                                     <strong>La Fuga Ediciones</strong><br></br>
-                                    C/O Llibreria Calders <br></br>
-                                    Passatge Pere Calders, 9<br></br>
+                                    Passatge Pere Calders, 7, 1º 2ª<br></br>
                                     08015 Barcelona<br></br>
-                                    Tel: (+34) 934 42 78 31<br></br>
+                                    Tel: (+34) 933 28 20 52<br></br>
                                     <a href="mailto:#">info@lafugaediciones.es</a>
                                 </address>
                             </div>
                             <div  className="col-md-6 right" >
                                 <strong>Partners</strong><br></br>
-                                <a href="https://www.facebook.com/lacalders" target="_blank">Llibreria Calders</a><br></br>
-                                <a href="http://www.tactilestudio.com/" target="_blank">TactilEstudio</a><br></br>
+                                <a href="https://www.redoble.studio/" target="_blank">Redoble studio gráfico</a><br></br>
 
 
                                 <div>
