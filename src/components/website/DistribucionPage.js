@@ -20,75 +20,65 @@ const DistribucionPage = () => {
             </div>
             <div className="row">
               <div className="col-xs-12 col-sm-4 ">
-                <address className="distr_address">
-                  <b className="b-title">UDL LIBROS</b>
-                  <br></br>
-                  Ctra. M-300 KM. 29.5
+                 <address className="distr_address">
+                  <b className="b-title">LA PANOPLIA EXPORT</b>
                   <br />
-                  Alcalá de Henares 28802 MADRID
+                  c/ Ulises 65 28043
                   <br />
-                  Tel.: 918823280 <br />
-                  Fax. 918800658
-                  <br />
-                  <a className="a-email" href="mailto:#">
-                    info@udllibros.com
-                  </a>
-                  <br></br>
-                  <a
-                    className="a-email"
-                    href="http://www.udllibros.com"
-                    target="_blank"
-                  >
-                    www.udllibros.com
-                  </a>
+                  MADRID
                   <br />
                   <br />
-                  EN CATALUÑA, EUSKADI, LA RIOJA, <br />
-                  ASTURIAS, CANTABRIA, NAVARRA, <br />
-                  MADRID, CASTILLA LA MANCHA,
                   <br />
-                  BALEARES, ARAGÓN,VALENCIA, <br />
-                  CASTELLÓN, ALICANTE, MURCIA <br />Y ALBACETE
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  RESTO DEL MUNDO <br />
+                  <br />
+                  <br />
+                  <br />
+
                 </address>
               </div>
               <div className="col-xs-12 col-sm-4 ">
                 <address className="distr_address">
-                  <b className="b-title">AZETA DISTRIBUCIONES</b>
+                  <b className="b-title">WALDHUTER LIBROS</b>
                   <br />
-                  Camino bajo s/n <br />
-                  18100 Armilla, GRANADA <br />
-                  Tel.: 902.13.10.14 <br />
-                  Fax. 902.15.39.33 <br />
-                  <a className="a-email" href="mailto:#">
-                    info@azetadistribuciones.es
-                  </a>
+                  Pavón 2636 - Buenos Aires <br />
+                  ARGENTINA
+                  <br />
+                  Tel.: (54-11) 60914786 <br />
                   <br />
                   <br />
                   <br />
-                  EN ANDALUCÍA Y EXTREMADURA
+                  <br />
+                  EN ARGENTINA<br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
                 </address>
               </div>
               <div className="col-xs-12 col-sm-4 ">
                 <address className="distr_address">
-                  <b className="b-title">LIDIZA S.L</b>
+                  <b className="b-title">Almacén Central de Libreria ACL</b>
                   <br />
-                  Avda. de Soria, 15 <br />
-                  47193 La Cistérniga, VALLADOLID <br />
-                  Tel.: 983.40.30.60 <br />
-                  Fax. 983.40.30.70
+                  Polígono Haizpea 1 <br />
+                  20150 Aduna <br />
                   <br />
                   <a className="a-email" href="mailto:#">
-                    info@lidiza.es
+                    pedidos@almacencentraldelibreria.com
                   </a>
                   <br />
                   <br />
                   <br />
-                  EN CASTILLA LEÓN
+                  EN GIPUZKOA
                 </address>
               </div>
             </div>
             <hr />
-            <div className="row">
+           {/*  <div className="row">
               <div className="col-xs-12 col-sm-4 ">
                 <address className="distr_address">
                   <b className="b-title">TROQUEL LIBROS S.L</b>
@@ -186,7 +176,7 @@ const DistribucionPage = () => {
               </div>
               <div className="col-xs-12 col-sm-4">
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
