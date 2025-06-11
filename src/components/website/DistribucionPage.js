@@ -65,7 +65,7 @@ const DistribucionPage = () => {
                   <b className="b-title">Almacén Central de Libreria ACL</b>
                   <br />
                   Polígono Haizpea 1 <br />
-                  20150 Aduna <br />
+                  20150 Aduna (Gipuzkoa) <br />
                   <br />
                   <a className="a-email" href="mailto:#">
                     pedidos@almacencentraldelibreria.com
@@ -73,7 +73,7 @@ const DistribucionPage = () => {
                   <br />
                   <br />
                   <br />
-                  EN GIPUZKOA
+                  EN TODA ESPAÑA
                 </address>
               </div>
             </div>
